@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "RobbyApp",
-    "slug": "RobbyApp",
+    "name": "bookkeeping",
+    "slug": "bookkeeping",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "com.robby1228.bookkeeping",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -16,7 +17,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.robby1228.bookkeeping"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,6 +28,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dc37b0fd-b7db-492e-91b8-f6a9b03c5d1a"
+      }
     }
   }
 }

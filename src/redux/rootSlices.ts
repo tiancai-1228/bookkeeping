@@ -1,11 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-
-import homeReducer, { HomeSlice } from './slices/homeSlice';
+import accountReducer, { AccountSlice } from './slices/accountSlice';
 
 export interface RootState {
-  home: HomeSlice;
+  account: AccountSlice;
 }
 
 export const rootReducer = combineReducers({
-  home: homeReducer,
+  account: accountReducer,
 });

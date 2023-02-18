@@ -1,15 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-
-import { setValueSlice } from '@/redux/slices/homeSlice';
-
-import { ScreenProp } from '@/navigator/rootNavigator';
+import { setGoogleTokenSlice, setLenSlice } from '@/redux/slices/accountSlice';
+import { ScreenProp } from '@/navigator/main.stack';
 import { useNavigation } from '@react-navigation/core';
-
 import Configs from '@/configs';
+import { auth } from '@/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SplashScreen = () => {
@@ -21,22 +18,34 @@ const SplashScreen = () => {
     try {
       const len = await AsyncStorage.getItem(Configs.AsyncStorage.len);
       if (len) {
-        dispatch(setValueSlice({ len }));
+        dispatch(setLenSlice({ len }));
         i18n.changeLanguage(len);
       }
-
-      navigation.replace('Home');
     } catch (e) {
       console.log('error', e);
     }
   };
 
+  const getAuth = async () => {
+    const googleToken = await AsyncStorage.getItem(
+      Configs.AsyncStorage.googleToken,
+    );
+    if (googleToken) {
+      dispatch(setGoogleTokenSlice({ googleToken: googleToken }));
+    } else {
+      setTimeout(() => {
+        !auth.currentUser && navigation.navigate('Login');
+      }, 2000);
+    }
+  };
+
   useLayoutEffect(() => {
     getLanguage();
+    getAuth();
   }, []);
 
   return (
-    <View className="flex-1 items-center justify-center bg-primary">
+    <View className="flex-1 items-center justify-center bg-[#404040]">
       <ActivityIndicator size="large" />
     </View>
   );

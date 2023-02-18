@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { RootState } from '@/redux/rootSlices';
-import { setValueSlice } from '@/redux/slices/homeSlice';
-
+import { setLenSlice } from '@/redux/slices/accountSlice';
 import Configs from '@/configs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -20,7 +17,7 @@ enum LangKey {
 export const LanguageDropdown: React.FC<Props> = () => {
   const { i18n } = useTranslation();
   const dispatch = useDispatch();
-  const { len } = useSelector((state: RootState) => state.home.value);
+  const { len } = useSelector((state: RootState) => state.account.value);
 
   const data = [
     { label: '中文(繁)', value: LangKey[0] },
@@ -28,7 +25,7 @@ export const LanguageDropdown: React.FC<Props> = () => {
   ];
 
   const handleLanguageChange = async (key: string) => {
-    dispatch(setValueSlice({ len: key }));
+    dispatch(setLenSlice({ len: key }));
     await i18n.changeLanguage(key);
     await AsyncStorage.setItem(Configs.AsyncStorage.len, key);
   };

@@ -5,6 +5,8 @@
     "^react",
     "^@screens",
     "^@components",
+    "^firebase",
+    "^expo",
     "^@/redux",
     "^@/navigator|@react-navigation",
     "^@/hook|^@/utils",
@@ -13,7 +15,6 @@
     "^[^.].*",
     "^..?/"
   ],
-  "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrderCaseInsensitive": true,
   "arrowParens": "always",

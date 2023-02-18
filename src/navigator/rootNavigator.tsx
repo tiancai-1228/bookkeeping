@@ -1,31 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/rootSlices';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getUserinfo } from '@/utils/auth';
+import mainStack, { RootStackParamList } from './main.stack';
+import { AuthStack } from './stack/auth.stack';
 
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
-
-import { HomeParamList, HomeStack } from './stack/home.stack';
-
-export type RootStackParamList = HomeParamList;
-
-export type ScreenProp = NativeStackNavigationProp<RootStackParamList>;
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-const mainStack = () => {
-  return <>{HomeStack()}</>;
-};
-
 const RootNavigator = () => {
+  const { googleToken, me } = useSelector(
+    (state: RootState) => state.account.value,
+  );
+
+  useEffect(() => {
+    if (!googleToken) return;
+    getUserinfo(googleToken);
+  }, [googleToken]);
+
   return (
     <RootStack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#406087' },
         headerTintColor: '#fff',
         headerShadowVisible: false,
       }}
     >
-      {mainStack()}
+      {me ? mainStack() : AuthStack()}
     </RootStack.Navigator>
   );
 };

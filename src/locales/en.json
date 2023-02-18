@@ -1,3 +1,5 @@
 {
-  "hollow": "hollow"
+  "hollow": "hollow",
+  "login": "login",
+  "logout": "logout"
 }

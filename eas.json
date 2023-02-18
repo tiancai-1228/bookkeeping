@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 3.5.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "env": {
+        "API_URL": "https://api.production.com"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium",
+        "simulator": true
+      }
+    },
+    "production": {
+      "extends": "development"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
