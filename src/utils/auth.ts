@@ -1,3 +1,4 @@
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { serverTimestamp } from 'firebase/database';
 import * as AuthSession from 'expo-auth-session';
 import {
@@ -6,6 +7,7 @@ import {
   setMeSlice,
 } from '@/redux/slices/accountSlice';
 import Configs from '@/configs';
+import { auth } from '@/firebase/firebase';
 import { getUser } from '@/firebase/get/account';
 import { createUser, updateUser } from '@/firebase/set/account';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -32,6 +34,7 @@ const logout = async (googleToken: string) => {
 
   await AsyncStorage.removeItem(Configs.AsyncStorage.googleToken);
   store.dispatch(logoutSlice());
+  signOut();
 };
 
 // getUserinfo
@@ -52,6 +55,7 @@ const getUserinfo = async (googleToken: string) => {
       const user = id && (await getUser(id));
       user && updateUser({ ...data, id, createAt: user.createAt });
       !user && createUser({ ...data, id, createAt: serverTimestamp() });
+      signInWithEmailAndPassword(auth, data.email, data.email);
     });
   } catch (error) {
     logout(googleToken);
