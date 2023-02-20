@@ -12,6 +12,7 @@ const Configs = {
   google: {
     userinfoEndpoint: 'https://www.googleapis.com/userinfo/v2/me',
     revocationEndpoint: 'https://oauth2.googleapis.com/revoke',
+    tokenEndpoint: 'https://www.googleapis.com/oauth2/v4/token',
   },
 
   version: packageInfo.version,

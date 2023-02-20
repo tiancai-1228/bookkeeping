@@ -1,3 +1,5 @@
+import { bookkeepingList } from './bookkeeping';
+
 interface userinfo {
   id: string;
   locale: string;
@@ -7,6 +9,8 @@ interface userinfo {
   family_name: string;
   given_name: string;
   verified_email: boolean;
+  createAt: number;
+  bookkeeping?: bookkeepingList;
 }
 
 export { userinfo };

@@ -6,7 +6,6 @@ import { setGoogleTokenSlice, setLenSlice } from '@/redux/slices/accountSlice';
 import { ScreenProp } from '@/navigator/main.stack';
 import { useNavigation } from '@react-navigation/core';
 import Configs from '@/configs';
-import { auth } from '@/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SplashScreen = () => {
@@ -34,7 +33,7 @@ const SplashScreen = () => {
       dispatch(setGoogleTokenSlice({ googleToken: googleToken }));
     } else {
       setTimeout(() => {
-        !auth.currentUser && navigation.navigate('Login');
+        !googleToken && navigation.navigate('Login');
       }, 2000);
     }
   };

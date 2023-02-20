@@ -1,3 +1,4 @@
+import { serverTimestamp } from 'firebase/database';
 import * as AuthSession from 'expo-auth-session';
 import {
   logoutSlice,
@@ -5,6 +6,8 @@ import {
   setMeSlice,
 } from '@/redux/slices/accountSlice';
 import Configs from '@/configs';
+import { getUser } from '@/firebase/get/account';
+import { createUser, updateUser } from '@/firebase/set/account';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import store from '../redux/store';
 
@@ -33,13 +36,26 @@ const logout = async (googleToken: string) => {
 
 // getUserinfo
 const getUserinfo = async (googleToken: string) => {
-  let userInfoResponse = await fetch(Configs.google.userinfoEndpoint, {
-    headers: { Authorization: `Bearer ${googleToken}` },
-  });
+  try {
+    let userInfoResponse = await fetch(Configs.google.userinfoEndpoint, {
+      headers: { Authorization: `Bearer ${googleToken}` },
+    });
+    await userInfoResponse.json().then(async (data) => {
+      if (data.error) {
+        throw Error;
+      }
 
-  userInfoResponse.json().then((data) => {
-    store.dispatch(setMeSlice({ me: data }));
-  });
+      const id = data.email.split('@')[0];
+      store.dispatch(setMeSlice({ me: { ...data, id } }));
+
+      //update user data
+      const user = id && (await getUser(id));
+      user && updateUser({ ...data, id, createAt: user.createAt });
+      !user && createUser({ ...data, id, createAt: serverTimestamp() });
+    });
+  } catch (error) {
+    logout(googleToken);
+  }
 };
 
 export { login, logout, getUserinfo };

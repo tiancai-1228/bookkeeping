@@ -1,5 +1,6 @@
 {
   "hollow": "hollow",
   "login": "login",
-  "logout": "logout"
+  "logout": "logout",
+  "sign_up": "sign up"
 }
