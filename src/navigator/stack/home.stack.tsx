@@ -1,10 +1,7 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HeaderRightButton from '@/components/button/HeaderRight.button';
 import HomeScreen from '@/screens/Home/HomeScreen';
-import { RootStackParamList } from '../main.stack';
-
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+import { RootStack } from '../rootNavigator';
 
 export type HomeParamList = {
   SplashScreen: undefined;
@@ -23,7 +20,7 @@ export const HomeStack = () => {
           headerStyle: {
             backgroundColor: '#000',
           },
-          headerRight: () => <HeaderRightButton />,
+          headerLeft: () => <HeaderRightButton />,
           animation: 'fade',
         })}
       />

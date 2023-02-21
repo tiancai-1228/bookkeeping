@@ -1,10 +1,7 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '@/screens/Login/LoginScreen';
 import SplashScreen from '@/screens/SplashScreen';
-import { RootStackParamList } from '../main.stack';
-
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+import { RootStack } from '../rootNavigator';
 
 export type AuthParamList = {
   SplashScreen: undefined;

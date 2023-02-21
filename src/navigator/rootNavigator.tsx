@@ -6,7 +6,7 @@ import { getUserinfo } from '@/utils/auth';
 import mainStack, { RootStackParamList } from './main.stack';
 import { AuthStack } from './stack/auth.stack';
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+export const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   const { googleToken, me } = useSelector(

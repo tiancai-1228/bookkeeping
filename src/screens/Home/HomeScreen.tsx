@@ -22,15 +22,6 @@ const HomeScreen = () => {
   return (
     <View className="flex-1 justify-center items-center">
       <Button
-        title={`${t('logout')}`}
-        style={{ width: 200 }}
-        color={'#39C1B6'}
-        onPress={() => {
-          googleToken && logout(googleToken);
-        }}
-      />
-
-      <Button
         title={`create `}
         style={{ width: 200, marginTop: 20 }}
         color={'#39C1B6'}
