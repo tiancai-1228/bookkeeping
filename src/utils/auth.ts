@@ -34,7 +34,7 @@ const logout = async (googleToken: string) => {
 
   await AsyncStorage.removeItem(Configs.AsyncStorage.googleToken);
   store.dispatch(logoutSlice());
-  signOut();
+  signOut(auth);
 };
 
 // getUserinfo
