@@ -10,7 +10,6 @@ export default function App() {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      background: '#2a2a2a',
     },
   };
 

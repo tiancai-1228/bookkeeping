@@ -1,14 +1,23 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { Button } from '@rneui/themed';
+import { Image, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/rootSlices';
 
 const HeaderRightButton = () => {
+  const { me } = useSelector((state: RootState) => state.account.value);
+
   return (
-    <Button
+    <TouchableOpacity
       onPress={() => alert('This is a button!')}
-      title="Info"
-      color="#000"
-    />
+      className="w-[40px] h-[40px]  rounded-full"
+    >
+      {me?.picture && (
+        <Image
+          source={{ uri: me!.picture }}
+          className="w-[100%] h-[100%] rounded-full"
+        />
+      )}
+    </TouchableOpacity>
   );
 };
 

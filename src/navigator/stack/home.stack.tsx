@@ -1,5 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HeaderRightButton from '@/components/button/HeaderRight.button';
 import HomeScreen from '@/screens/Home/HomeScreen';
 import { RootStackParamList } from '../main.stack';
 
@@ -16,7 +17,15 @@ export const HomeStack = () => {
       <RootStack.Screen
         name="Home"
         component={HomeScreen}
-        options={() => ({ headerShown: false, animation: 'fade' })}
+        options={() => ({
+          headerShown: true,
+          title: '',
+          headerStyle: {
+            backgroundColor: '#000',
+          },
+          headerRight: () => <HeaderRightButton />,
+          animation: 'fade',
+        })}
       />
     </>
   );
