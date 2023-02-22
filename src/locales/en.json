@@ -1,6 +1,9 @@
 {
-  "hollow": "hollow",
-  "login": "login",
-  "logout": "logout",
-  "sign_up": "sign up"
+  "hollow": "Hollow",
+  "login": "Login",
+  "logout": "Logout",
+  "sign_up": "Sign up",
+  "back": "Back",
+  "income": "Income",
+  "expenses": "Expenses"
 }

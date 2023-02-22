@@ -1,44 +1,18 @@
 import React, { useState } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
-import Modal from 'react-native-modal';
+import { TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
-import AccountScreen from '@/screens/account/AccountScreen';
+import { Feather } from '@expo/vector-icons';
 
 const HeaderRightButton = () => {
   const { me } = useSelector((state: RootState) => state.account.value);
 
-  const [isModalVisible, setModalVisible] = useState(false);
-
   return (
-    <>
-      <TouchableOpacity
-        onPress={() => setModalVisible(true)}
-        className="w-[40px] h-[40px]  rounded-full "
-      >
-        {me?.picture && (
-          <Image
-            source={{ uri: me!.picture }}
-            className="w-[100%] h-[100%] rounded-full "
-          />
-        )}
+    <View className="mr-2">
+      <TouchableOpacity className="w-[40px] h-[40px]  rounded-full ">
+        <Feather name="calendar" size={30} color="white" />
       </TouchableOpacity>
-
-      <Modal
-        testID={'modal'}
-        isVisible={isModalVisible}
-        backdropColor=""
-        backdropOpacity={0.8}
-        animationIn="fadeInUp"
-        animationOut="fadeOutDown"
-        animationInTiming={400}
-        animationOutTiming={400}
-        onBackdropPress={() => setModalVisible(false)}
-        style={{ margin: 0, alignItems: 'center', justifyContent: 'center' }}
-      >
-        <AccountScreen />
-      </Modal>
-    </>
+    </View>
   );
 };
 
