@@ -18,12 +18,13 @@ export const createBookkeeping = async (
 ): Promise<bookkeeping | null> => {
   try {
     const newKey = push(child(ref(db), `users/${id}/bookkeeping`)).key;
-    set(ref(db, `users/${id}/bookkeeping/${newKey}`), {
+    await set(ref(db, `users/${id}/bookkeeping/${newKey}`), {
       id: newKey,
       name,
       createAt: serverTimestamp(),
     });
-    return newKey ? getBookkeeping(id, newKey) : null;
+
+    return newKey ? await getBookkeeping(id, newKey) : null;
   } catch (error) {
     console.log(error);
     return null;

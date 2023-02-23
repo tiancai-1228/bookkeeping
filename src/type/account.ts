@@ -11,6 +11,7 @@ interface userinfo {
   verified_email: boolean;
   createAt: number;
   bookkeeping?: bookkeepingList;
+  currentBookkeeping?: string;
 }
 
 export { userinfo };

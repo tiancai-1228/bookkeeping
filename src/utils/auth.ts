@@ -50,18 +50,24 @@ const getUserinfo = async (googleToken: string) => {
       }
 
       const id = data.email.split('@')[0];
-      store.dispatch(setMeSlice({ me: { ...data, id } }));
 
-      //update user data
       const user = id && (await getUser(id));
       await signInWithEmailAndPassword(auth, data.email, data.email);
+
+      //create new user
       if (!user) {
         await createUser({ ...data, id, createAt: serverTimestamp() });
-        createBookkeeping(id, 'my-bookkeeping');
+        const newUser = id && (await getUser(id));
+        store.dispatch(setMeSlice({ me: newUser }));
+        return;
       }
+
+      //update user data
       user && updateUser({ ...data, id, createAt: user.createAt });
+      store.dispatch(setMeSlice({ me: user }));
     });
   } catch (error) {
+    console.log(error);
     logout(googleToken);
   }
 };
