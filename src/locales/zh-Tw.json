@@ -5,5 +5,18 @@
   "sign_up": "註冊",
   "back": "返回",
   "income": "收入",
-  "expenses": "支出"
+  "expenses": "支出",
+  "account_book": "記帳簿",
+  "setting": "設定",
+  "language": "語言",
+  "add": "新增",
+  "account_book_name": "帳簿名稱",
+  "account_book_code": "帳簿編號",
+  "create_at": "建立日期",
+  "confirm": "確定",
+  "cancel": "取消",
+  "warning": "警告",
+  "delete_sure": "確定是否刪除",
+  "delete_success": "刪除成功",
+  "delete_fail": "刪除失敗"
 }

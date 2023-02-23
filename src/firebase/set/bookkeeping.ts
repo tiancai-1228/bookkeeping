@@ -1,16 +1,43 @@
-import { child, push, ref, serverTimestamp, set } from 'firebase/database';
+import {
+  child,
+  push,
+  ref,
+  remove,
+  serverTimestamp,
+  set,
+} from 'firebase/database';
+import { bookkeeping } from '@/type/bookkeeping';
 import moment from 'moment';
 import { db } from '../firebase';
+import { getBookkeeping } from '../get/bookkeeping';
 
 //建立記帳簿
-export const createBookkeeping = async (id: string, name: string) => {
-  const newKey = push(child(ref(db), `users/${id}/bookkeeping`)).key;
+export const createBookkeeping = async (
+  id: string,
+  name: string,
+): Promise<bookkeeping | null> => {
+  try {
+    const newKey = push(child(ref(db), `users/${id}/bookkeeping`)).key;
+    set(ref(db, `users/${id}/bookkeeping/${newKey}`), {
+      id: newKey,
+      name,
+      createAt: serverTimestamp(),
+    });
+    return newKey ? getBookkeeping(id, newKey) : null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 
-  set(ref(db, `users/${id}/bookkeeping/${newKey}`), {
-    id: newKey,
-    name,
-    createAt: serverTimestamp(),
-  });
+//刪除記帳簿
+export const deleteBookkeeping = async (id: string, bookkeepingId: string) => {
+  try {
+    remove(ref(db, `users/${id}/bookkeeping/${bookkeepingId}`));
+    return true;
+  } catch (error) {
+    return false;
+  }
 };
 
 //收入

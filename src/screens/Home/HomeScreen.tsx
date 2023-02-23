@@ -3,16 +3,14 @@ import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
-import { getBookkeeping } from '@/firebase/get/bookkeeping';
+import { getBookkeepingList } from '@/firebase/get/bookkeeping';
 import { createBookkeeping } from '@/firebase/set/bookkeeping';
 import { Button } from '@rneui/themed';
 
 const HomeScreen = () => {
   const { t } = useTranslation();
 
-  const { googleToken, me } = useSelector(
-    (state: RootState) => state.account.value,
-  );
+  const { me } = useSelector((state: RootState) => state.account.value);
 
   return (
     <View className="flex-1 justify-center items-center">
@@ -30,7 +28,7 @@ const HomeScreen = () => {
         style={{ width: 200, marginTop: 20 }}
         color={'#39C1B6'}
         onPress={async () => {
-          const res = await getBookkeeping(me!.id, '-NOhKdcAqzxtwHitj6Z4');
+          const res = await getBookkeepingList(me!.id);
           console.log(res);
         }}
       />

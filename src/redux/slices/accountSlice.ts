@@ -6,6 +6,7 @@ export interface AccountSlice {
     len?: string;
     googleToken?: string;
     me?: userinfo;
+    accountModal: boolean;
   };
   error: string;
 }
@@ -17,6 +18,7 @@ export const AccountSlice = createSlice({
       len: undefined,
       googleToken: undefined,
       me: undefined,
+      accountModal: false,
     },
     error: '',
   } as AccountSlice,
@@ -49,11 +51,27 @@ export const AccountSlice = createSlice({
       };
     },
 
+    setAccountModalSlice: (
+      state,
+      _action: PayloadAction<{ accountModal: boolean }>,
+    ) => {
+      const { value } = state;
+      return {
+        ...state,
+        value: { ...value, accountModal: _action.payload.accountModal },
+      };
+    },
+
     logoutSlice: (state) => {
       const { value } = state;
       return {
         ...state,
-        value: { ...value, me: undefined, googleToken: undefined },
+        value: {
+          ...value,
+          me: undefined,
+          googleToken: undefined,
+          accountModal: false,
+        },
       };
     },
 
@@ -73,6 +91,7 @@ export const {
   setGoogleTokenSlice,
   setMeSlice,
   logoutSlice,
+  setAccountModalSlice,
 } = AccountSlice.actions;
 
 export default AccountSlice.reducer;

@@ -8,8 +8,8 @@ export const updateUser = (userinfo: userinfo) => {
   });
 };
 
-export const createUser = (userinfo: userinfo) => {
-  set(ref(db, `users/${userinfo.id}`), {
+export const createUser = async (userinfo: userinfo) => {
+  await set(ref(db, `users/${userinfo.id}`), {
     ...userinfo,
   });
 };

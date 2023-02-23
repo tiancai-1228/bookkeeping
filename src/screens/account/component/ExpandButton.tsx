@@ -1,19 +1,25 @@
 import React from 'react';
+import { Text, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Button } from '@rneui/themed';
 
 interface Prop {
   title: string;
+  icon: React.ReactElement;
   disabled?: boolean;
   onPress?: () => void;
 }
 
-const ExpandButton = ({ title, disabled = false, onPress }: Prop) => {
+const ExpandButton = ({ icon, title, disabled = false, onPress }: Prop) => {
   return (
     <Button
-      title={title}
+      title={
+        <View className="flex-row justify-center items-center">
+          {icon}
+          <Text className="text-lg font-bold ml-2">{title}</Text>
+        </View>
+      }
       disabled={disabled}
-      titleStyle={{ fontWeight: '700', color: 'black' }}
       color={'#f4f4f4'}
       buttonStyle={{
         borderColor: 'transparent',

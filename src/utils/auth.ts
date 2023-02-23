@@ -10,6 +10,7 @@ import Configs from '@/configs';
 import { auth } from '@/firebase/firebase';
 import { getUser } from '@/firebase/get/account';
 import { createUser, updateUser } from '@/firebase/set/account';
+import { createBookkeeping } from '@/firebase/set/bookkeeping';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import store from '../redux/store';
 
@@ -53,9 +54,12 @@ const getUserinfo = async (googleToken: string) => {
 
       //update user data
       const user = id && (await getUser(id));
+      await signInWithEmailAndPassword(auth, data.email, data.email);
+      if (!user) {
+        await createUser({ ...data, id, createAt: serverTimestamp() });
+        createBookkeeping(id, 'my-bookkeeping');
+      }
       user && updateUser({ ...data, id, createAt: user.createAt });
-      !user && createUser({ ...data, id, createAt: serverTimestamp() });
-      signInWithEmailAndPassword(auth, data.email, data.email);
     });
   } catch (error) {
     logout(googleToken);

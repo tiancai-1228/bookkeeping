@@ -5,5 +5,18 @@
   "sign_up": "Sign up",
   "back": "Back",
   "income": "Income",
-  "expenses": "Expenses"
+  "expenses": "Expenses",
+  "account_book": "Account Book",
+  "setting": "Setting",
+  "language": "Language",
+  "add": "Add",
+  "account_book_name": "Account Book Name",
+  "account_book_code": "Account Book Code",
+  "create_at": "Create At",
+  "confirm": "confirm",
+  "cancel": "cancel",
+  "warning": "warning",
+  "delete_sure": "sure to delete",
+  "delete_success": "Delete Success",
+  "delete_fail": "Delete Fail"
 }

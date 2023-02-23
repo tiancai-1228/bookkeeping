@@ -36,8 +36,13 @@ export const LanguageDropdown: React.FC<Props> = () => {
         handleLanguageChange(val.value);
       }}
       data={data}
-      selectedTextStyle={{ textAlign: 'right' }}
-      itemTextStyle={{ textAlign: 'right' }}
+      selectedTextStyle={{
+        textAlign: 'right',
+        color: 'white',
+      }}
+      activeColor="gray"
+      itemTextStyle={{ textAlign: 'right', color: 'white' }}
+      itemContainerStyle={{ backgroundColor: '#000' }}
       value={len || i18n.language}
       labelField="label"
       valueField="value"

@@ -6,9 +6,11 @@ import {
   BookkeepingParamList,
   BookkeepingStack,
 } from './stack/bookkeeping.stack';
+import { CommonParamList, CommonStack } from './stack/common.stack';
 import TabNavigator, { BottomTabParamList } from './tabNavigator';
 
 export type RootStackParamList = BottomTabParamList &
+  CommonParamList &
   AuthParamList &
   BookkeepingParamList;
 
@@ -25,7 +27,7 @@ const mainStack = () => {
           animation: 'fade',
         }}
       />
-
+      {CommonStack()}
       {BookkeepingStack()}
     </>
   );
