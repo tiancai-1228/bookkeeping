@@ -64,6 +64,7 @@ export const income = async (
 export const expenses = async (
   id: string,
   bookkeepingId: string,
+  category: string,
   count: number,
 ) => {
   const year = moment().format('YYYY');
@@ -75,6 +76,7 @@ export const expenses = async (
   set(ref(db, `${Endpoint}/${newKey}`), {
     id: newKey,
     count,
+    category,
     createAt: serverTimestamp(),
   });
 };

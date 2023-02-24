@@ -1,11 +1,13 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Animated, Dimensions, ScrollView, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
+import { setMeSlice } from '@/redux/slices/accountSlice';
 import { ScreenProp } from '@/navigator/main.stack';
 import { useNavigation } from '@react-navigation/native';
 import { bookkeeping } from '@/type/bookkeeping';
 import { getBookkeepingList } from '@/firebase/get/bookkeeping';
+import { setCurrentBookkeeping } from '@/firebase/set/account';
 import { deleteBookkeeping } from '@/firebase/set/bookkeeping';
 import { AntDesign } from '@expo/vector-icons';
 import { t } from 'i18next';
@@ -17,6 +19,7 @@ const DetailScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [list, setList] = useState<bookkeeping[]>([]);
   const { me } = useSelector((state: RootState) => state.account.value);
+  const dispatch = useDispatch();
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const OFFSET = 40;
@@ -32,9 +35,31 @@ const DetailScreen = () => {
     try {
       const res = await deleteBookkeeping(me!.id, bookkeepingId);
       res && setList((pre) => pre.filter((el) => el.id != bookkeepingId));
+
       Alert.alert(t('delete_success'));
     } catch (error) {
       Alert.alert(t('delete_fail'));
+    }
+  };
+
+  const handelChangeBookkeeping = async (
+    id: string,
+    bookkeepingId: string,
+    bookkeepingName: string,
+  ) => {
+    try {
+      setCurrentBookkeeping(me!.id, bookkeepingId, bookkeepingName);
+      dispatch(
+        setMeSlice({
+          me: {
+            ...me!,
+            currentBookkeeping: { id: bookkeepingId, name: bookkeepingName },
+          },
+        }),
+      );
+      Alert.alert(t('switch_success'));
+    } catch (error) {
+      Alert.alert(t('switch_fail'));
     }
   };
 
@@ -59,7 +84,7 @@ const DetailScreen = () => {
 
   return (
     <View className="flex-1 justify-center">
-      <View>
+      <View className="">
         <ScrollView
           horizontal={true}
           decelerationRate={'normal'}
@@ -72,6 +97,7 @@ const DetailScreen = () => {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: false },
           )}
+          style={{ paddingTop: 80, paddingBottom: 20 }}
         >
           {list.map((item, idx) => {
             const inputRange = [
@@ -101,8 +127,11 @@ const DetailScreen = () => {
                 currentIndex={idx}
                 opacity={opacity}
                 translate={translate}
-                handelDelete={() => {
+                onDelete={() => {
                   handelDeleteBookkeeping(me!.id, item.id);
+                }}
+                onChange={(id, name) => {
+                  handelChangeBookkeeping(me!.id, id, name);
                 }}
               />
             );

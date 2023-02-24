@@ -1,5 +1,7 @@
 import React from 'react';
-import { Alert, Animated, Text, View } from 'react-native';
+import { Alert, Animated, Text, TouchableOpacity, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/rootSlices';
 import { bookkeeping } from '@/type/bookkeeping';
 import { AntDesign } from '@expo/vector-icons';
 import { t } from 'i18next';
@@ -14,7 +16,8 @@ interface Props {
   currentIndex: number;
   opacity: Animated.AnimatedInterpolation<string | number>;
   translate: Animated.AnimatedInterpolation<string | number>;
-  handelDelete: () => void;
+  onDelete: () => void;
+  onChange: (id: string, name: string) => void;
 }
 
 const BookkeepingItem = ({
@@ -26,8 +29,12 @@ const BookkeepingItem = ({
   currentIndex,
   opacity,
   translate,
-  handelDelete,
+  onDelete,
+  onChange,
 }: Props) => {
+  const { me } = useSelector((state: RootState) => state.account.value);
+  const isCurrentBookkeeping = me?.currentBookkeeping?.id === item.id;
+
   return (
     <Animated.View
       key={item.id}
@@ -40,9 +47,15 @@ const BookkeepingItem = ({
         transform: [{ scale: translate }],
       }}
     >
-      <View className="w-full h-full bg-[#165457] rounded-lg items-center justify-between">
+      {isCurrentBookkeeping && (
+        <View className=" absolute top-[-40] w-full justify-center items-center">
+          <Text className="text-xl text-[#fff]">{t('now_account_book')}</Text>
+        </View>
+      )}
+
+      <View className="w-full h-full bg-[#288786] rounded-lg items-center justify-between ">
         <Text className="mt-10 text-4xl text-white">{item?.name || '-'}</Text>
-        <View className="mb-16">
+        <View className="mb-14">
           <Text className="text-base text-white mb-2">{`${t(
             'account_book_code',
           )}:  ${item.id}`}</Text>
@@ -51,8 +64,8 @@ const BookkeepingItem = ({
           </Text>
         </View>
       </View>
-      {list.length > 1 && (
-        <View className="bottom-2 absolute right-4">
+      {list.length > 1 && !isCurrentBookkeeping && (
+        <View className="top-2 absolute right-4">
           <AntDesign
             name="delete"
             size={30}
@@ -65,14 +78,23 @@ const BookkeepingItem = ({
                 },
                 {
                   text: `${t('confirm')}`,
-                  onPress: () => {
-                    handelDelete();
-                  },
+                  onPress: onDelete,
                 },
               ]);
             }}
           />
         </View>
+      )}
+
+      {!isCurrentBookkeeping && (
+        <TouchableOpacity
+          onPress={() => {
+            onChange(item.id, item.name);
+          }}
+          className=" absolute bottom-[0] bg-[#31a299] h-10 z-10 w-full rounded-b-lg  justify-center items-center"
+        >
+          <Text className="text-xl text-[#fff]">{t('choose')}</Text>
+        </TouchableOpacity>
       )}
     </Animated.View>
   );

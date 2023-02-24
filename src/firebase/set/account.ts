@@ -9,6 +9,16 @@ export const updateUser = (userinfo: userinfo) => {
   });
 };
 
+export const setCurrentBookkeeping = (
+  id: string,
+  BookkeepingId: string,
+  Bookkeeping: string,
+) => {
+  update(ref(db, `users/${id}`), {
+    currentBookkeeping: { id: BookkeepingId, name: Bookkeeping },
+  });
+};
+
 export const createUser = async (userinfo: userinfo) => {
   await set(ref(db, `users/${userinfo.id}`), {
     ...userinfo,
@@ -19,5 +29,8 @@ export const createUser = async (userinfo: userinfo) => {
     'my-bookkeeping',
   );
 
-  updateUser({ ...userinfo, currentBookkeeping: initBookkeeping!.id });
+  updateUser({
+    ...userinfo,
+    currentBookkeeping: { id: initBookkeeping!.id, name: 'my-bookkeeping' },
+  });
 };

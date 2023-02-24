@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { ScreenProp } from '@/navigator/main.stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 import ExpensesView from './containers/Expenses.view';
 import IncomeView from './containers/Income.view';

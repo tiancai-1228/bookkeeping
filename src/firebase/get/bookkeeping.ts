@@ -19,7 +19,10 @@ const getBookkeepingList = async (id: string): Promise<bookkeeping[]> => {
     });
 };
 
-const getBookkeeping = async (id: string, bookkeepingId: string) => {
+const getBookkeeping = async (
+  id: string,
+  bookkeepingId: string,
+): Promise<bookkeeping | null> => {
   const dbRef = ref(db);
   const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}`;
 

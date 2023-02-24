@@ -1,6 +1,7 @@
 interface record {
   id: string;
   createAt: number;
+  category: string;
   count: number;
 }
 

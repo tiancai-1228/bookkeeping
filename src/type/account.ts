@@ -11,7 +11,7 @@ interface userinfo {
   verified_email: boolean;
   createAt: number;
   bookkeeping?: bookkeepingList;
-  currentBookkeeping?: string;
+  currentBookkeeping?: { id: string; name: string };
 }
 
 export { userinfo };
