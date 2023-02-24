@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { numberSeparator } from '@/utils/number';
 import { bookkeeping } from '@/type/bookkeeping';
+import MonthPickerModal from '@/components/modal/MonthPicker.modal';
+import { AntDesign } from '@expo/vector-icons';
 import { t } from 'i18next';
+import moment from 'moment';
 import ExpensesScrollView from '../component/scrollView/Expenses.scrollView';
 import IncomeScrollView from '../component/scrollView/Income.scrollView';
 
@@ -12,35 +15,54 @@ interface Prop {
 }
 
 const MonthView = ({ bookkeepingData }: Prop) => {
+  const [visible, setVisible] = useState(false);
+  const [year, setYear] = useState(moment().format('YYYY'));
+  const [month, setMonth] = useState(moment().format('MM'));
+
   const { name, id, createAt, data } = bookkeepingData;
   const Tab = createMaterialTopTabNavigator();
+
   return (
     <View className="flex-1 w-full items-center py-4 ">
-      <View className="w-[90%] h-[150px] bg-[#cae7eb] rounded-xl p-2 shadow shadow-zinc-300">
+      <View className="w-full h-8  mb-2 justify-center items-center flex-row">
+        <Text className="text-2xl font-bold text-white mr-2" numberOfLines={1}>
+          {`${year} ${t('year')} ${month} ${t('month')}`}
+        </Text>
+        <AntDesign
+          name="caretdown"
+          size={20}
+          color="white"
+          onPress={() => {
+            setVisible(true);
+          }}
+        />
+      </View>
+
+      <View className="w-[90%] h-[150px] bg-[#31a299] rounded-xl p-3 shadow shadow-gray-400">
         <View className="w-full justify-between flex-row">
           <View className="w-[80%] justify-around ">
-            <Text className="text-xl" numberOfLines={1}>
+            <Text className="text-base font-bold" numberOfLines={1}>
               {t('monthly_balance')}:
             </Text>
-            <Text className="text-4xl mt-2" numberOfLines={1}>
+            <Text className="text-4xl mt-2 font-bold text-w" numberOfLines={1}>
               $ {numberSeparator(98764531)}
             </Text>
 
             <View className="w-full  mb-2 flex-row justify-between mt-2">
               <View className=" justify-around  ">
-                <Text className=" text-sm " numberOfLines={1}>
+                <Text className=" text-sm font-bold" numberOfLines={1}>
                   {t('monthly_expenses')}:
                 </Text>
-                <Text className=" text-base" numberOfLines={1}>
+                <Text className=" text-base font-bold" numberOfLines={1}>
                   $ {numberSeparator(98764531)}
                 </Text>
               </View>
 
               <View className="justify-around ">
-                <Text className=" text-sm" numberOfLines={1}>
+                <Text className=" text-sm font-bold" numberOfLines={1}>
                   {t('monthly_income')}:
                 </Text>
-                <Text className=" text-base" numberOfLines={1}>
+                <Text className=" text-base font-bold" numberOfLines={1}>
                   $ {numberSeparator(98764531)}
                 </Text>
               </View>
@@ -104,6 +126,19 @@ const MonthView = ({ bookkeepingData }: Prop) => {
           </Tab.Screen>
         </Tab.Navigator>
       </View>
+
+      <MonthPickerModal
+        Visible={visible}
+        year={year}
+        month={month}
+        onClose={() => {
+          setVisible(false);
+        }}
+        onPress={(y, m) => {
+          setYear(y);
+          setMonth(m);
+        }}
+      />
     </View>
   );
 };

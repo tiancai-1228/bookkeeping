@@ -41,5 +41,19 @@
   "other": "Other",
   "monthly_balance": "Monthly Balance",
   "monthly_income": "Monthly Income",
-  "monthly_expenses": "Monthly Expenses"
+  "monthly_expenses": "Monthly Expenses",
+  "year": "Year",
+  "month": "Month",
+  "jan": "Jan",
+  "feb": "Feb",
+  "mar": "Mar",
+  "apr": "Apr",
+  "may": "May",
+  "jun": "Jun",
+  "jul": "Jul",
+  "aug": "Aug",
+  "sept": "Sept",
+  "oct": "Oct",
+  "nov": "Nov",
+  "dec": "Dec"
 }
