@@ -36,7 +36,7 @@ const MonthPickerModal = ({ Visible, year, month, onClose, onPress }: Prop) => {
     <Modal
       testID={'modal'}
       isVisible={Visible}
-      backdropColor="#121212"
+      backdropColor=""
       backdropOpacity={0.8}
       animationIn="fadeInDown"
       animationOut="fadeOutUp"

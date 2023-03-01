@@ -52,7 +52,8 @@ const getUserinfo = async (googleToken: string) => {
       const id = data.email.split('@')[0];
 
       const user = id && (await getUser(id));
-      await signInWithEmailAndPassword(auth, data.email, data.email);
+      //todo: signInWithEmailAndPassword
+      // await signInWithEmailAndPassword(auth, data.email, data.email);
 
       //create new user
       if (!user) {

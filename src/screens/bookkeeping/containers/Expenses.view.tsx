@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
 import useCategories from '@/hook/useCategories.hook';
+import { category } from '@/type/categories';
 import { expenses } from '@/firebase/set/bookkeeping';
-import { Button } from '@rneui/themed';
+import Calculator from '../component/calculator/Calculator';
 import ExpensesItem from '../component/item/Expenses.item';
 
 const ExpensesView = () => {
-  const { googleToken, me } = useSelector(
-    (state: RootState) => state.account.value,
-  );
-  const [currentCategory, setCurrent] = useState('breakfast');
+  const { me } = useSelector((state: RootState) => state.account.value);
+  const [currentCategory, setCurrent] = useState<category>({
+    name: 'breakfast',
+    icon: 'food-apple',
+    type: 'MaterialCommunity',
+  });
+  const [count, setCount] = useState('');
   const { BaseExpenses } = useCategories();
 
   return (
@@ -24,29 +28,29 @@ const ExpensesView = () => {
                 key={item.name}
                 item={item}
                 currentCategory={currentCategory}
-                onClick={(name) => {
-                  setCurrent(name);
+                onClick={(val) => {
+                  setCurrent(val);
                 }}
               />
             ))}
           </View>
         </ScrollView>
       </View>
-      <View className="bg-[#404040] h-full">
-        <Button
-          title={`expenses `}
-          style={{ width: 200, marginTop: 20 }}
-          color={'#39C1B6'}
-          onPress={() => {
-            console.log(BaseExpenses);
-            expenses(me!.id, me!.currentBookkeeping!.id, currentCategory, 300);
-          }}
-        />
-      </View>
+
+      <Calculator
+        onPress={() => {
+          expenses(
+            me!.id,
+            me!.currentBookkeeping!.id,
+            { year: '', month: '', date: '' },
+            currentCategory,
+            parseFloat(count),
+            'test',
+          );
+        }}
+      />
     </View>
   );
 };
 
 export default ExpensesView;
-
-const styles = StyleSheet.create({});

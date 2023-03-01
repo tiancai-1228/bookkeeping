@@ -1,8 +1,11 @@
+import { category } from './categories';
+
 interface record {
   id: string;
   createAt: number;
-  category: string;
+  category: category;
   count: number;
+  memo?: string;
 }
 
 interface recordList {
@@ -37,4 +40,4 @@ interface bookkeepingList {
   [key: string]: bookkeeping;
 }
 
-export { bookkeepingList, bookkeeping };
+export { bookkeepingList, bookkeeping, record };

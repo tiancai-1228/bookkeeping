@@ -7,6 +7,7 @@ import {
   set,
 } from 'firebase/database';
 import { bookkeeping } from '@/type/bookkeeping';
+import { category } from '@/type/categories';
 import moment from 'moment';
 import { db } from '../firebase';
 import { getBookkeeping } from '../get/bookkeeping';
@@ -64,11 +65,12 @@ export const income = async (
 export const expenses = async (
   id: string,
   bookkeepingId: string,
-  category: string,
+  time: { year: string; month: string; date: string },
+  category: category,
   count: number,
+  memo?: string,
 ) => {
-  const year = moment().format('YYYY');
-  const month = moment().format('M');
+  const { year, month, date } = time;
   const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}/data/${year}/${month}/expenses`;
 
   const newKey = push(child(ref(db), Endpoint)).key;
@@ -77,6 +79,8 @@ export const expenses = async (
     id: newKey,
     count,
     category,
+    memo,
+    // date:``,
     createAt: serverTimestamp(),
   });
 };

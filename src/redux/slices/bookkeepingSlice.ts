@@ -1,29 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import moment from 'moment';
 
 export interface BookkeepingSlice {
-  value: { currentBookkeeping?: string };
+  value: { year: string; month: string };
   error: string;
 }
 
 export const BookkeepingSlice = createSlice({
   name: 'account',
   initialState: {
-    value: { currentBookkeeping: undefined },
+    value: { year: moment().format('YYYY'), month: moment().format('M') },
     error: '',
   } as BookkeepingSlice,
 
   reducers: {
-    setCurrentBookkeepingSlice: (
-      state,
-      _action: PayloadAction<{ currentBookkeeping: string }>,
-    ) => {
+    setYearSlice: (state, _action: PayloadAction<{ year: string }>) => {
       const { value } = state;
       return {
         ...state,
-        value: {
-          ...value,
-          currentBookkeeping: _action.payload.currentBookkeeping,
-        },
+        value: { ...value, year: _action.payload.year },
+      };
+    },
+
+    setMonthSlice: (state, _action: PayloadAction<{ month: string }>) => {
+      const { value } = state;
+      return {
+        ...state,
+        value: { ...value, month: _action.payload.month },
       };
     },
     setErrorSlice: (state, _action: PayloadAction<string>) => {
@@ -36,7 +39,7 @@ export const BookkeepingSlice = createSlice({
   },
 });
 
-export const { setErrorSlice, setCurrentBookkeepingSlice } =
+export const { setErrorSlice, setYearSlice, setMonthSlice } =
   BookkeepingSlice.actions;
 
 export default BookkeepingSlice.reducer;

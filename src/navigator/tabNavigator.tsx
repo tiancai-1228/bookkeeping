@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
@@ -7,7 +7,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import HeaderLeftButton from '@/components/button/HeaderLeft.button';
 import HeaderRightButton from '@/components/button/HeaderRight.button';
-import { getBookkeeping } from '@/firebase/get/bookkeeping';
 import BookkeepingBaseScreen from '@/screens/bookkeeping/BookkeepingBaseScreen';
 import HomeScreen from '@/screens/Home/HomeScreen';
 import ReportScreen from '@/screens/report/ReportScreen';
@@ -21,10 +20,14 @@ export type BottomTabParamList = {
 
 const Tab = createBottomTabNavigator();
 
-const tabOptions = (title?: string) => {
+const tabOptions = (title?: string, onClick?: () => void) => {
   return {
     headerShown: true,
-    title: title,
+    headerTitle: () => (
+      <TouchableOpacity onPress={onClick}>
+        <Text className="text-white font-bold text-xl">{title}</Text>
+      </TouchableOpacity>
+    ),
     headerTintColor: '#fff',
     headerStyle: {
       backgroundColor: '#000',
@@ -76,7 +79,9 @@ const TabNavigator = () => {
           name="Home"
           component={HomeScreen}
           options={() => ({
-            ...tabOptions(`${me?.currentBookkeeping?.name || '-'}`),
+            ...tabOptions(`${me?.currentBookkeeping?.name || '-'}`, () => {
+              navigation.navigate('BookkeepingDetail');
+            }),
             headerLeft: () => <HeaderLeftButton />,
             headerRight: () => <HeaderRightButton />,
             tabBarIcon: ({ focused }: { focused: boolean }) => (

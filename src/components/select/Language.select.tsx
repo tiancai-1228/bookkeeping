@@ -21,7 +21,7 @@ export const LanguageDropdown: React.FC<Props> = () => {
 
   const data = [
     { label: '中文(繁)', value: LangKey[0] },
-    { label: 'en', value: LangKey[1] },
+    { label: 'English', value: LangKey[1] },
   ];
 
   const handleLanguageChange = async (key: string) => {

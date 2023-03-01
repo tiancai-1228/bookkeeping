@@ -54,7 +54,9 @@ const BookkeepingItem = ({
       )}
 
       <View className="w-full h-full bg-[#288786] rounded-lg items-center justify-between ">
-        <Text className="mt-10 text-4xl text-white">{item?.name || '-'}</Text>
+        <Text numberOfLines={1} className="mt-10 text-4xl text-white">
+          {item?.name || '-'}
+        </Text>
         <View className="mb-14">
           <Text className="text-base text-white mb-2">{`${t(
             'account_book_code',
@@ -65,7 +67,7 @@ const BookkeepingItem = ({
         </View>
       </View>
       {list.length > 1 && !isCurrentBookkeeping && (
-        <View className="top-2 absolute right-4">
+        <View className=" absolute top-[-40] w-full justify-center items-center">
           <AntDesign
             name="delete"
             size={30}

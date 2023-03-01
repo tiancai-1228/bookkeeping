@@ -6,17 +6,17 @@ import { t } from 'i18next';
 
 interface Props {
   item: category;
-  currentCategory: string;
-  onClick: (name: string) => void;
+  currentCategory: category;
+  onClick: (category: category) => void;
 }
 
 const ExpensesItem = ({ item, currentCategory, onClick }: Props) => {
   const { icons } = useCategories();
-  const iconColor = item.name === currentCategory;
+  const iconColor = item.name === currentCategory.name;
   return (
     <TouchableOpacity
       onPress={() => {
-        onClick(item.name);
+        onClick(item);
       }}
       className="w-[24%] h-10  mb-10 justify-center items-center"
     >

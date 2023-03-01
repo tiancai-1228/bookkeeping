@@ -30,7 +30,7 @@ const BookkeepingScreen = () => {
           },
 
           tabBarItemStyle: {
-            width: 80,
+            width: 120,
             height: 40,
             paddingTop: 0,
           },
