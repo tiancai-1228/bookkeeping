@@ -1,8 +1,12 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/rootSlices';
+import { ScreenProp } from '@/navigator/main.stack';
+import { useNavigation } from '@react-navigation/native';
 import { record } from '@/type/bookkeeping';
-import moment from 'moment';
-import ExpensesItem from '../item/Expenses.item';
+import { deleteExpenses } from '@/firebase/set/bookkeeping';
+import BookkeepingItem from '../item/Bookkeeping.item';
 
 interface Prop {
   expensesList: record[];
@@ -10,6 +14,17 @@ interface Prop {
 
 const ExpensesScrollView = ({ expensesList }: Prop) => {
   const date: string[] = [];
+  const { me } = useSelector((state: RootState) => state.account.value);
+  const navigation = useNavigation<ScreenProp>();
+
+  const handelDelete = (item: record) => {
+    const date = item.date.split('-');
+    deleteExpenses(me!.id, me!.currentBookkeeping!.id, item.id, {
+      year: date[0],
+      month: date[1],
+    });
+  };
+
   return (
     <View className="flex-1  px-4 pt-2 mb-20 ">
       <ScrollView>
@@ -24,11 +39,25 @@ const ExpensesScrollView = ({ expensesList }: Prop) => {
                       {el.date}
                     </Text>
                   </View>
-                  <ExpensesItem item={el} key={el.id} />
+                  <BookkeepingItem
+                    item={el}
+                    key={el.id}
+                    onDelete={() => {
+                      handelDelete(el);
+                    }}
+                  />
                 </View>
               );
             } else {
-              return <ExpensesItem item={el} key={el.id} />;
+              return (
+                <BookkeepingItem
+                  item={el}
+                  key={el.id}
+                  onDelete={() => {
+                    handelDelete(el);
+                  }}
+                />
+              );
             }
           })}
       </ScrollView>

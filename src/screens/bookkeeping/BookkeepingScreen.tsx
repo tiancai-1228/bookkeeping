@@ -12,7 +12,7 @@ import IncomeView from './containers/Income.view';
 
 export type BookkeepingTabParamList = {
   customer: {
-    screen: 'Expenses' | 'Income';
+    screen: 'expenses' | 'income';
   };
 };
 
@@ -32,8 +32,28 @@ const BookkeepingScreen = () => {
   const navigation = useNavigation<ScreenProp>();
 
   const {
-    params: { income, expenses },
+    params: { type, income, expenses },
   } = useRoute<BookkeepingRouterProp>();
+
+  const handleInitDate = (date: string[]) => {
+    const initDate = {
+      year: date[0],
+      month: date[1],
+      date: date[2],
+    };
+    setDate(initDate);
+  };
+
+  useEffect(() => {
+    if (expenses) {
+      const date = expenses.date.split('-');
+      handleInitDate(date);
+    }
+    if (income) {
+      const date = income.date.split('-');
+      handleInitDate(date);
+    }
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -53,6 +73,7 @@ const BookkeepingScreen = () => {
   return (
     <>
       <Tab.Navigator
+        initialRouteName={type}
         screenOptions={({ route }) => {
           return {
             tabBarScrollEnabled: true,
@@ -93,12 +114,12 @@ const BookkeepingScreen = () => {
           };
         }}
       >
-        <Tab.Screen name="Expenses" options={{ title: `${t('expenses')}` }}>
+        <Tab.Screen name="expenses" options={{ title: `${t('expenses')}` }}>
           {() => <ExpensesView Date={Date} initDate={expenses} />}
         </Tab.Screen>
 
-        <Tab.Screen name="Income" options={{ title: `${t('income')}` }}>
-          {() => <IncomeView />}
+        <Tab.Screen name="income" options={{ title: `${t('income')}` }}>
+          {() => <IncomeView Date={Date} initDate={income} />}
         </Tab.Screen>
       </Tab.Navigator>
 

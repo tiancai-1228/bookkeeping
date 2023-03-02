@@ -10,7 +10,7 @@ interface Props {
   onClick: (category: category) => void;
 }
 
-const ExpensesItem = ({ item, currentCategory, onClick }: Props) => {
+const CategoryItem = ({ item, currentCategory, onClick }: Props) => {
   const { icons } = useCategories();
   const iconColor = item.name === currentCategory.name;
   return (
@@ -33,4 +33,4 @@ const ExpensesItem = ({ item, currentCategory, onClick }: Props) => {
   );
 };
 
-export default ExpensesItem;
+export default CategoryItem;

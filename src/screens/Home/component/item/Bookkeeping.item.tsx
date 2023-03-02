@@ -9,13 +9,13 @@ import useCategories from '@/hook/useCategories.hook';
 import { record } from '@/type/bookkeeping';
 import { deleteExpenses } from '@/firebase/set/bookkeeping';
 import { Button, ListItem } from '@rneui/themed';
-import moment from 'moment';
 
 interface Prop {
   item: record;
+  onDelete: () => void;
 }
 
-const ExpensesItem = ({ item }: Prop) => {
+const BookkeepingItem = ({ item, onDelete }: Prop) => {
   const { t } = useTranslation();
   const { icons } = useCategories();
   const { me } = useSelector((state: RootState) => state.account.value);
@@ -32,20 +32,17 @@ const ExpensesItem = ({ item }: Prop) => {
       }}
       onPress={() => {
         item.type === 'expenses' &&
-          navigation.navigate('Bookkeeping', { expenses: item });
+          navigation.navigate('Bookkeeping', {
+            type: item.type,
+            expenses: item,
+          });
         item.type === 'income' &&
-          navigation.navigate('Bookkeeping', { income: item });
+          navigation.navigate('Bookkeeping', { type: item.type, income: item });
       }}
       rightContent={() => (
         <Button
           title=""
-          onPress={() => {
-            const date = item.date.split('-');
-            deleteExpenses(me!.id, me!.currentBookkeeping!.id, item.id, {
-              year: date[0],
-              month: date[1],
-            });
-          }}
+          onPress={onDelete}
           icon={{ name: 'delete', color: 'white' }}
           buttonStyle={{ height: '100%', backgroundColor: 'red' }}
         />
@@ -69,4 +66,4 @@ const ExpensesItem = ({ item }: Prop) => {
   );
 };
 
-export default ExpensesItem;
+export default BookkeepingItem;

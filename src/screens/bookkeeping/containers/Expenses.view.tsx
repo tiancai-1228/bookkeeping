@@ -10,7 +10,7 @@ import { category } from '@/type/categories';
 import { bookkeepingDate } from '@/type/common';
 import { expenses, updateExpenses } from '@/firebase/set/bookkeeping';
 import Calculator from '../component/calculator/Calculator';
-import ExpensesItem from '../component/item/Expenses.item';
+import CategoryItem from '../component/item/Category.item';
 
 interface Prop {
   Date: bookkeepingDate;
@@ -26,11 +26,6 @@ const ExpensesView = ({ Date, initDate }: Prop) => {
   });
   const { BaseExpenses } = useCategories();
   const navigation = useNavigation<ScreenProp>();
-
-  useEffect(() => {
-    if (!initDate) return;
-    setCurrentCategory(initDate.category);
-  }, []);
 
   const handelSubmit = (count: number, memo: string) => {
     if (initDate) {
@@ -53,8 +48,13 @@ const ExpensesView = ({ Date, initDate }: Prop) => {
         memo,
       );
     }
-    navigation.goBack();
+    navigation.pop();
   };
+
+  useEffect(() => {
+    if (!initDate) return;
+    setCurrentCategory(initDate.category);
+  }, []);
 
   return (
     <View className="flex-1 ">
@@ -62,7 +62,7 @@ const ExpensesView = ({ Date, initDate }: Prop) => {
         <ScrollView>
           <View className="flex-row flex-wrap justify-around py-2">
             {BaseExpenses.map((item) => (
-              <ExpensesItem
+              <CategoryItem
                 key={item.name}
                 item={item}
                 currentCategory={currentCategory}

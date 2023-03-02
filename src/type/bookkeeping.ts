@@ -44,4 +44,4 @@ interface bookkeepingList {
   [key: string]: bookkeeping;
 }
 
-export { bookkeepingList, bookkeeping, record };
+export { bookkeepingList, bookkeeping, record, recordType };

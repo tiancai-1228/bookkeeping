@@ -98,7 +98,9 @@ const TabNavigator = () => {
           listeners={() => ({
             tabPress: (e) => {
               e.preventDefault();
-              navigation.navigate('Bookkeeping', {});
+              navigation.navigate('Bookkeeping', {
+                type: 'expenses',
+              });
             },
           })}
           options={() => ({

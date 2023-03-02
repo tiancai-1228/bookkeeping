@@ -34,9 +34,11 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       return pre;
     }, 0);
     return {
-      list: expensesList.sort((a, b) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-      }),
+      list: expensesList
+        .sort((a, b) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        })
+        .reverse(),
       total: total,
     };
   }, [data, year, month]);
@@ -50,9 +52,11 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       return pre;
     }, 0);
     return {
-      list: incomeList.sort((a, b) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-      }),
+      list: incomeList
+        .sort((a, b) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        })
+        .reverse(),
       total: total,
     };
   }, [data, year, month]);
@@ -107,7 +111,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       </View>
 
       {/* list */}
-      <HomeTab expensesList={expenses.list} />
+      <HomeTab expensesList={expenses.list} incomeList={incomeList.list} />
 
       <MonthPickerModal
         Visible={visible}

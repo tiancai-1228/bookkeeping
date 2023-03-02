@@ -1,23 +1,83 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
-import { income } from '@/firebase/set/bookkeeping';
-import { Button } from '@rneui/themed';
+import { ScreenProp } from '@/navigator/main.stack';
+import { useNavigation } from '@react-navigation/native';
+import useCategories from '@/hook/useCategories.hook';
+import { record } from '@/type/bookkeeping';
+import { category } from '@/type/categories';
+import { bookkeepingDate } from '@/type/common';
+import { income, updateIncome } from '@/firebase/set/bookkeeping';
+import Calculator from '../component/calculator/Calculator';
+import CategoryItem from '../component/item/Category.item';
 
-const IncomeView = () => {
-  const { googleToken, me } = useSelector(
-    (state: RootState) => state.account.value,
-  );
+interface Prop {
+  Date: bookkeepingDate;
+  initDate?: record;
+}
+
+const IncomeView = ({ Date, initDate }: Prop) => {
+  const { me } = useSelector((state: RootState) => state.account.value);
+  const [currentCategory, setCurrentCategory] = useState<category>({
+    name: 'breakfast',
+    icon: 'food-apple',
+    type: 'MaterialCommunity',
+  });
+  const { BaseIncome } = useCategories();
+  const navigation = useNavigation<ScreenProp>();
+
+  const handelSubmit = (count: number, memo: string) => {
+    if (initDate) {
+      updateIncome(
+        me!.id,
+        me!.currentBookkeeping!.id,
+        initDate.id,
+        { year: Date.year, month: Date.month, date: Date.date },
+        currentCategory,
+        count,
+        memo,
+      );
+    } else {
+      income(
+        me!.id,
+        me!.currentBookkeeping!.id,
+        { year: Date.year, month: Date.month, date: Date.date },
+        currentCategory,
+        count,
+        memo,
+      );
+    }
+    navigation.pop();
+  };
+
+  useEffect(() => {
+    if (!initDate) return;
+    setCurrentCategory(initDate.category);
+  }, []);
   return (
-    <View>
-      <Text>IncomeView</Text>
-      <Button
-        title={`income `}
-        style={{ width: 200, marginTop: 20 }}
-        color={'#39C1B6'}
-        onPress={() => {
-          income(me!.id, '-NOhmbm3QkkOh77PFsRS', 200);
+    <View className="flex-1 ">
+      <View className="h-[350px] border mt-10 ">
+        <ScrollView>
+          <View className="flex-row flex-wrap justify-around py-2">
+            {BaseIncome.map((item) => (
+              <CategoryItem
+                key={item.name}
+                item={item}
+                currentCategory={currentCategory}
+                onClick={(val) => {
+                  setCurrentCategory(val);
+                }}
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </View>
+
+      <Calculator
+        initDate={initDate}
+        onPress={(count, memo) => {
+          handelSubmit(count, memo);
         }}
       />
     </View>
@@ -25,5 +85,3 @@ const IncomeView = () => {
 };
 
 export default IncomeView;
-
-const styles = StyleSheet.create({});

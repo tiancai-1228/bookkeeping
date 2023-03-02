@@ -10,9 +10,10 @@ const Tab = createMaterialTopTabNavigator();
 
 interface Prop {
   expensesList: record[];
+  incomeList: record[];
 }
 
-const HomeTab = ({ expensesList }: Prop) => {
+const HomeTab = ({ expensesList, incomeList }: Prop) => {
   const { t } = useTranslation();
   return (
     <View className="w-full mt-3 flex-1">
@@ -63,7 +64,7 @@ const HomeTab = ({ expensesList }: Prop) => {
         </Tab.Screen>
 
         <Tab.Screen name="Income" options={{ title: `${t('income')}` }}>
-          {() => <IncomeScrollView />}
+          {() => <IncomeScrollView incomeList={incomeList} />}
         </Tab.Screen>
       </Tab.Navigator>
     </View>

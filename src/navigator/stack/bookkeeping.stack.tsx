@@ -1,12 +1,12 @@
 import React from 'react';
-import { record } from '@/type/bookkeeping';
+import { record, recordType } from '@/type/bookkeeping';
 import BookkeepingScreen from '@/screens/bookkeeping/BookkeepingScreen';
 import DetailScreen from '@/screens/bookkeeping/DetailScreen';
 import { t } from 'i18next';
 import { RootStack } from '../rootNavigator';
 
 export type BookkeepingParamList = {
-  Bookkeeping: { income?: record; expenses?: record };
+  Bookkeeping: { type: recordType; income?: record; expenses?: record };
   BookkeepingDetail: undefined;
 };
 

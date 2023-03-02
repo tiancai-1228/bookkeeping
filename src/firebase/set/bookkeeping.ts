@@ -47,10 +47,12 @@ export const deleteBookkeeping = async (id: string, bookkeepingId: string) => {
 export const income = async (
   id: string,
   bookkeepingId: string,
+  time: { year: string; month: string; date: string },
+  category: category,
   count: number,
+  memo?: string,
 ) => {
-  const year = moment().format('YYYY');
-  const month = moment().format('M');
+  const { year, month, date } = time;
   const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}/data/${year}/${month}/income`;
 
   const newKey = push(child(ref(db), Endpoint)).key;
@@ -58,8 +60,43 @@ export const income = async (
   set(ref(db, `${Endpoint}/${newKey}`), {
     id: newKey,
     count,
+    category,
+    memo,
+    type: 'income',
+    date: `${year}-${month}-${date}`,
     createAt: serverTimestamp(),
   });
+};
+
+export const updateIncome = async (
+  id: string,
+  bookkeepingId: string,
+  incomeId: string,
+  time: { year: string; month: string; date: string },
+  category: category,
+  count: number,
+  memo?: string,
+) => {
+  const { year, month, date } = time;
+  const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}/data/${year}/${month}/income/${incomeId}`;
+
+  update(ref(db, Endpoint), {
+    count,
+    category,
+    memo,
+    date: `${year}-${month}-${date}`,
+  });
+};
+
+export const deleteIncome = async (
+  id: string,
+  bookkeepingId: string,
+  incomeId: string,
+  time: { year: string; month: string },
+) => {
+  const { year, month } = time;
+  const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}/data/${year}/${month}/income/${incomeId}`;
+  remove(ref(db, Endpoint));
 };
 
 //支出
