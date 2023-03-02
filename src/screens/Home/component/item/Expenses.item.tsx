@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import useCategories from '@/hook/useCategories.hook';
 import { record } from '@/type/bookkeeping';
 import { Button, ListItem } from '@rneui/themed';
-import moment from 'moment';
 
 interface Prop {
   item: record;
@@ -20,6 +19,8 @@ const ExpensesItem = ({ item }: Prop) => {
         // borderWidth: 1,
         flexDirection: 'row',
         padding: 0,
+        paddingTop: 6,
+        paddingBottom: 6,
         justifyContent: 'space-between',
       }}
       rightContent={(reset) => (

@@ -80,7 +80,7 @@ export const expenses = async (
     count,
     category,
     memo,
-    // date:``,
+    date: `${year}-${month}-${date}`,
     createAt: serverTimestamp(),
   });
 };

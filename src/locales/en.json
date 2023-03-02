@@ -56,5 +56,7 @@
   "oct": "Oct",
   "nov": "Nov",
   "dec": "Dec",
-  "amount": "Amount"
+  "amount": "Amount",
+  "memo": "Memo",
+  "submit": "Submit"
 }

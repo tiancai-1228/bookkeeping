@@ -33,6 +33,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       pre = pre + curr.count;
       return pre;
     }, 0);
+    console.log(data?.[`${year}`]);
     return { list: expensesList.reverse(), total: total };
   }, [data, year, month]);
 
