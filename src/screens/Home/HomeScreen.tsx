@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { onValue, ref } from 'firebase/database';
-import { limit, orderBy, query } from 'firebase/firestore';
 import { RootState } from '@/redux/rootSlices';
 import { bookkeeping } from '@/type/bookkeeping';
 import { db } from '@/firebase/firebase';

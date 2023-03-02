@@ -8,6 +8,7 @@ import { bookkeeping, record } from '@/type/bookkeeping';
 import MonthPickerModal from '@/components/modal/MonthPicker.modal';
 import { AntDesign } from '@expo/vector-icons';
 import { t } from 'i18next';
+import moment from 'moment';
 import HomeTab from '../component/tab/Home.tab';
 
 interface Prop {
@@ -33,10 +34,11 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       pre = pre + curr.count;
       return pre;
     }, 0);
+
     return {
       list: expensesList
-        .sort((a, b) => {
-          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        .sort(function (a, b) {
+          return b.date > a.date ? -1 : b.date < a.date ? 1 : 0;
         })
         .reverse(),
       total: total,
@@ -53,8 +55,8 @@ const MonthView = ({ bookkeepingData }: Prop) => {
     }, 0);
     return {
       list: incomeList
-        .sort((a, b) => {
-          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        .sort(function (a, b) {
+          return b.date > a.date ? -1 : b.date < a.date ? 1 : 0;
         })
         .reverse(),
       total: total,

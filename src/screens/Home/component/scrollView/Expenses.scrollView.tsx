@@ -2,8 +2,6 @@ import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
-import { ScreenProp } from '@/navigator/main.stack';
-import { useNavigation } from '@react-navigation/native';
 import { record } from '@/type/bookkeeping';
 import { deleteExpenses } from '@/firebase/set/bookkeeping';
 import BookkeepingItem from '../item/Bookkeeping.item';
@@ -15,7 +13,6 @@ interface Prop {
 const ExpensesScrollView = ({ expensesList }: Prop) => {
   const date: string[] = [];
   const { me } = useSelector((state: RootState) => state.account.value);
-  const navigation = useNavigation<ScreenProp>();
 
   const handelDelete = (item: record) => {
     const date = item.date.split('-');
