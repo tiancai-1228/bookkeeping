@@ -5,6 +5,7 @@ import {
   remove,
   serverTimestamp,
   set,
+  update,
 } from 'firebase/database';
 import { bookkeeping } from '@/type/bookkeeping';
 import { category } from '@/type/categories';
@@ -80,7 +81,39 @@ export const expenses = async (
     count,
     category,
     memo,
+    type: 'expenses',
     date: `${year}-${month}-${date}`,
     createAt: serverTimestamp(),
   });
+};
+
+export const updateExpenses = async (
+  id: string,
+  bookkeepingId: string,
+  expensesId: string,
+  time: { year: string; month: string; date: string },
+  category: category,
+  count: number,
+  memo?: string,
+) => {
+  const { year, month, date } = time;
+  const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}/data/${year}/${month}/expenses/${expensesId}`;
+
+  update(ref(db, Endpoint), {
+    count,
+    category,
+    memo,
+    date: `${year}-${month}-${date}`,
+  });
+};
+
+export const deleteExpenses = async (
+  id: string,
+  bookkeepingId: string,
+  expensesId: string,
+  time: { year: string; month: string },
+) => {
+  const { year, month } = time;
+  const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}/data/${year}/${month}/expenses/${expensesId}`;
+  remove(ref(db, Endpoint));
 };

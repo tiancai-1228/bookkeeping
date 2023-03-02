@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { record } from '@/type/bookkeeping';
 import { Ionicons } from '@expo/vector-icons';
 import CalculatorButton from './Calculator.Button';
 
 interface Prop {
+  initDate?: record;
   onPress: (count: number, memo: string) => void;
 }
 
-const Calculator = ({ onPress }: Prop) => {
-  const [count, setCount] = useState<string>('0');
+const Calculator = ({ initDate, onPress }: Prop) => {
+  const [count, setCount] = useState<string>('');
   const [memo, setMemo] = React.useState('');
   const { t } = useTranslation();
 
   const pluse = (count: string) => {
     setCount((pre) => pre + count);
   };
+
+  useEffect(() => {
+    if (!initDate) return;
+    setCount(initDate.count.toString());
+    setMemo(initDate.memo || '');
+  }, []);
+
   return (
     <View className="bg-[#404040] h-full">
       <View className="flex-row items-center mt-2">
@@ -124,7 +133,7 @@ const Calculator = ({ onPress }: Prop) => {
             title="AC"
             color="#3dc4b4"
             onPress={() => {
-              setCount('0');
+              setCount('');
             }}
           />
           <CalculatorButton

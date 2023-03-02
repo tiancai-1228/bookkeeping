@@ -16,6 +16,7 @@ import { ScreenProp } from './main.stack';
 
 export type BottomTabParamList = {
   BottomTab: { screen: 'Home' | 'create' | 'Report' };
+  create: { Id: string; title: string };
 };
 
 const Tab = createBottomTabNavigator();
@@ -97,7 +98,7 @@ const TabNavigator = () => {
           listeners={() => ({
             tabPress: (e) => {
               e.preventDefault();
-              navigation.navigate('Bookkeeping');
+              navigation.navigate('Bookkeeping', {});
             },
           })}
           options={() => ({

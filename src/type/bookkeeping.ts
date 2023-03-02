@@ -1,11 +1,14 @@
 import { category } from './categories';
 
+type recordType = 'income' | 'expenses';
+
 interface record {
   id: string;
   createAt: number;
   category: category;
   date: string;
   count: number;
+  type: recordType;
   memo?: string;
 }
 

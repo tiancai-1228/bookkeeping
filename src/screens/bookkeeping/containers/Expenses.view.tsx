@@ -1,30 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
 import { ScreenProp } from '@/navigator/main.stack';
 import { useNavigation } from '@react-navigation/native';
 import useCategories from '@/hook/useCategories.hook';
+import { record } from '@/type/bookkeeping';
 import { category } from '@/type/categories';
 import { bookkeepingDate } from '@/type/common';
-import { expenses } from '@/firebase/set/bookkeeping';
+import { expenses, updateExpenses } from '@/firebase/set/bookkeeping';
 import Calculator from '../component/calculator/Calculator';
 import ExpensesItem from '../component/item/Expenses.item';
 
 interface Prop {
   Date: bookkeepingDate;
+  initDate?: record;
 }
 
-const ExpensesView = ({ Date }: Prop) => {
+const ExpensesView = ({ Date, initDate }: Prop) => {
   const { me } = useSelector((state: RootState) => state.account.value);
-  const [currentCategory, setCurrent] = useState<category>({
+  const [currentCategory, setCurrentCategory] = useState<category>({
     name: 'breakfast',
     icon: 'food-apple',
     type: 'MaterialCommunity',
   });
   const { BaseExpenses } = useCategories();
-
   const navigation = useNavigation<ScreenProp>();
+
+  useEffect(() => {
+    if (!initDate) return;
+    setCurrentCategory(initDate.category);
+  }, []);
+
+  const handelSubmit = (count: number, memo: string) => {
+    if (initDate) {
+      updateExpenses(
+        me!.id,
+        me!.currentBookkeeping!.id,
+        initDate.id,
+        { year: Date.year, month: Date.month, date: Date.date },
+        currentCategory,
+        count,
+        memo,
+      );
+    } else {
+      expenses(
+        me!.id,
+        me!.currentBookkeeping!.id,
+        { year: Date.year, month: Date.month, date: Date.date },
+        currentCategory,
+        count,
+        memo,
+      );
+    }
+    navigation.goBack();
+  };
+
   return (
     <View className="flex-1 ">
       <View className="h-[350px] border mt-10 ">
@@ -36,7 +67,7 @@ const ExpensesView = ({ Date }: Prop) => {
                 item={item}
                 currentCategory={currentCategory}
                 onClick={(val) => {
-                  setCurrent(val);
+                  setCurrentCategory(val);
                 }}
               />
             ))}
@@ -45,16 +76,9 @@ const ExpensesView = ({ Date }: Prop) => {
       </View>
 
       <Calculator
+        initDate={initDate}
         onPress={(count, memo) => {
-          expenses(
-            me!.id,
-            me!.currentBookkeeping!.id,
-            { year: Date.year, month: Date.month, date: Date.date },
-            currentCategory,
-            count,
-            memo,
-          );
-          navigation.goBack();
+          handelSubmit(count, memo);
         }}
       />
     </View>

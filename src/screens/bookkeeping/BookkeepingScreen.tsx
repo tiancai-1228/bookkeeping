@@ -1,8 +1,8 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { ScreenProp } from '@/navigator/main.stack';
+import { RootStackParamList, ScreenProp } from '@/navigator/main.stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { bookkeepingDate } from '@/type/common';
 import CalendarModal from '@/components/modal/Calendar.modal';
 import { t } from 'i18next';
@@ -16,6 +16,11 @@ export type BookkeepingTabParamList = {
   };
 };
 
+export type BookkeepingRouterProp = RouteProp<
+  RootStackParamList,
+  'Bookkeeping'
+>;
+
 const BookkeepingScreen = () => {
   const [visible, setVisible] = useState(false);
   const [Date, setDate] = useState<bookkeepingDate>({
@@ -25,6 +30,10 @@ const BookkeepingScreen = () => {
   });
   const Tab = createMaterialTopTabNavigator();
   const navigation = useNavigation<ScreenProp>();
+
+  const {
+    params: { income, expenses },
+  } = useRoute<BookkeepingRouterProp>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -85,7 +94,7 @@ const BookkeepingScreen = () => {
         }}
       >
         <Tab.Screen name="Expenses" options={{ title: `${t('expenses')}` }}>
-          {() => <ExpensesView Date={Date} />}
+          {() => <ExpensesView Date={Date} initDate={expenses} />}
         </Tab.Screen>
 
         <Tab.Screen name="Income" options={{ title: `${t('income')}` }}>
