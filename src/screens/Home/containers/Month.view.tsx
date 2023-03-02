@@ -33,15 +33,28 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       pre = pre + curr.count;
       return pre;
     }, 0);
-    console.log(data?.[`${year}`]);
-    return { list: expensesList.reverse(), total: total };
+    return {
+      list: expensesList.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      }),
+      total: total,
+    };
   }, [data, year, month]);
 
   const incomeList = useMemo(() => {
-    if (!data) return [];
+    if (!data) return { list: [], total: 0 };
     const income = data?.[`${year}`]?.[`${month}`]?.['income'];
     const incomeList: record[] = income ? Object.values(income) : [];
-    return incomeList;
+    const total = incomeList.reduce((pre, curr) => {
+      pre = pre + curr.count;
+      return pre;
+    }, 0);
+    return {
+      list: incomeList.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      }),
+      total: total,
+    };
   }, [data, year, month]);
 
   return (
@@ -67,7 +80,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
               {t('monthly_balance')}:
             </Text>
             <Text className="text-4xl mt-2 font-bold text-w" numberOfLines={1}>
-              $ {numberSeparator(98764531)}
+              $ {numberSeparator(expenses.total - incomeList.total)}
             </Text>
 
             <View className="w-full  mb-2 flex-row justify-between mt-2">
@@ -85,7 +98,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
                   {t('monthly_income')}:
                 </Text>
                 <Text className=" text-base font-bold" numberOfLines={1}>
-                  $ {numberSeparator(98764531)}
+                  $ {numberSeparator(incomeList.total)}
                 </Text>
               </View>
             </View>

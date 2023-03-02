@@ -15,13 +15,13 @@ const ExpensesScrollView = ({ expensesList }: Prop) => {
       <ScrollView>
         {expensesList.length !== 0 &&
           expensesList.map((el) => {
-            if (!date.includes(moment(el.createAt).format('yyyy-MM-DD'))) {
-              date.push(moment(el.createAt).format('yyyy-MM-DD'));
+            if (!date.includes(el.date)) {
+              date.push(el.date);
               return (
                 <View key={el.id}>
                   <View className="bg-[#404040] px-1 rounded-md my-1">
                     <Text className="text-white  text-base font-bold">
-                      {moment(el.createAt).format('yyyy-MM-DD')}
+                      {el.date}
                     </Text>
                   </View>
                   <ExpensesItem item={el} key={el.id} />

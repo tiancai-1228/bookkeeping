@@ -4,6 +4,7 @@ interface record {
   id: string;
   createAt: number;
   category: category;
+  date: string;
   count: number;
   memo?: string;
 }

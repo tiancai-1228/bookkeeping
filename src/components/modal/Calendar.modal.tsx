@@ -29,8 +29,8 @@ const CalendarModal = ({ Visible, initDate, onClose, onPress }: Prop) => {
     };
     const selectDate = {
       year: moment(date).format('yyyy'),
-      month: moment(date).format('MM'),
-      date: moment(date).format('DD'),
+      month: moment(date).format('M'),
+      date: moment(date).format('D'),
     };
     setSelectedDate(selectDate);
     setMarkedDates(markedDates);

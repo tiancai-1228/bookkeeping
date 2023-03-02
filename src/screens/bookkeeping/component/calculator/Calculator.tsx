@@ -9,7 +9,7 @@ interface Prop {
 }
 
 const Calculator = ({ onPress }: Prop) => {
-  const [count, setCount] = useState<string>('');
+  const [count, setCount] = useState<string>('0');
   const [memo, setMemo] = React.useState('');
   const { t } = useTranslation();
 
@@ -124,7 +124,7 @@ const Calculator = ({ onPress }: Prop) => {
             title="AC"
             color="#3dc4b4"
             onPress={() => {
-              setCount('');
+              setCount('0');
             }}
           />
           <CalculatorButton
