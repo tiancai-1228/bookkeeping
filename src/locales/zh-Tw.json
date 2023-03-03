@@ -58,5 +58,11 @@
   "dec": "十二月",
   "amount": "金額",
   "memo": "備註",
-  "submit": "確定"
+  "submit": "確定",
+  "salary": "薪水",
+  "bonus": " 獎金",
+  "trade": "交易",
+  "stock": "股票 ",
+  "picked_up_money": "撿到錢",
+  "investment": "投資"
 }

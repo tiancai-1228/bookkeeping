@@ -20,8 +20,8 @@ interface Prop {
 const IncomeView = ({ Date, initDate }: Prop) => {
   const { me } = useSelector((state: RootState) => state.account.value);
   const [currentCategory, setCurrentCategory] = useState<category>({
-    name: 'breakfast',
-    icon: 'food-apple',
+    name: 'salary',
+    icon: 'account-cash',
     type: 'MaterialCommunity',
   });
   const { BaseIncome } = useCategories();

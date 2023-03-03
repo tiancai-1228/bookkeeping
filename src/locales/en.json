@@ -58,5 +58,11 @@
   "dec": "Dec",
   "amount": "Amount",
   "memo": "Memo",
-  "submit": "Submit"
+  "submit": "Submit",
+  "salary": "Salary",
+  "bonus": " Bonus",
+  "trade": "Trade",
+  "stock": "Stock ",
+  "picked_up_money": "Picked Up Money",
+  "investment": "Investment"
 }

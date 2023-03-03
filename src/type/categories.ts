@@ -1,9 +1,13 @@
-type categoryType = 'income' | 'expenses';
-
+type iconType =
+  | 'MaterialCommunity'
+  | 'Material'
+  | 'FontAwesome'
+  | 'Ionicons'
+  | 'FontAwesome5';
 interface category {
   name: string;
   icon: string;
-  type: 'MaterialCommunity';
+  type: iconType;
 }
 
-export { category, categoryType };
+export { category, iconType };
