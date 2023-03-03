@@ -42,7 +42,7 @@ export const LanguageDropdown: React.FC<Props> = () => {
       }}
       activeColor="gray"
       itemTextStyle={{ textAlign: 'right', color: 'white' }}
-      itemContainerStyle={{ backgroundColor: '#000' }}
+      itemContainerStyle={{ backgroundColor: '#252525' }}
       value={len || i18n.language}
       labelField="label"
       valueField="value"

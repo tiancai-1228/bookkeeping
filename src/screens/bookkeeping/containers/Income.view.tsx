@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
 import { ScreenProp } from '@/navigator/main.stack';
@@ -56,31 +57,33 @@ const IncomeView = ({ Date, initDate }: Prop) => {
     setCurrentCategory(initDate.category);
   }, []);
   return (
-    <View className="flex-1 ">
-      <View className="h-[350px] border mt-10 ">
-        <ScrollView>
-          <View className="flex-row flex-wrap justify-around py-2">
-            {BaseIncome.map((item) => (
-              <CategoryItem
-                key={item.name}
-                item={item}
-                currentCategory={currentCategory}
-                onClick={(val) => {
-                  setCurrentCategory(val);
-                }}
-              />
-            ))}
-          </View>
-        </ScrollView>
-      </View>
+    <KeyboardAwareScrollView>
+      <View className="flex-1 ">
+        <View className="h-[350px]  mt-6 ">
+          <ScrollView>
+            <View className="flex-row flex-wrap justify-around py-2">
+              {BaseIncome.map((item) => (
+                <CategoryItem
+                  key={item.name}
+                  item={item}
+                  currentCategory={currentCategory}
+                  onClick={(val) => {
+                    setCurrentCategory(val);
+                  }}
+                />
+              ))}
+            </View>
+          </ScrollView>
+        </View>
 
-      <Calculator
-        initDate={initDate}
-        onPress={(count, memo) => {
-          handelSubmit(count, memo);
-        }}
-      />
-    </View>
+        <Calculator
+          initDate={initDate}
+          onPress={(count, memo) => {
+            handelSubmit(count, memo);
+          }}
+        />
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

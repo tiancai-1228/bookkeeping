@@ -28,7 +28,7 @@ const ExpandButton = ({ icon, title, disabled = false, onPress }: Prop) => {
         display: 'flex',
         justifyContent: 'space-between',
       }}
-      icon={<AntDesign name="right" size={24} color="black" />}
+      icon={<AntDesign name="right" size={24} color="#252525" />}
       iconRight
       iconContainerStyle={{ marginRight: 2 }}
       onPress={onPress}

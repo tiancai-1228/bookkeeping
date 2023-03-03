@@ -23,7 +23,7 @@ const BookkeepingItem = ({ item, onDelete }: Prop) => {
   return (
     <ListItem.Swipeable
       containerStyle={{
-        backgroundColor: '#000',
+        backgroundColor: '#252525',
         flexDirection: 'row',
         padding: 0,
         paddingTop: 6,

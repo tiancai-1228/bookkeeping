@@ -41,7 +41,7 @@ const HomeTab = ({ expensesList, incomeList }: Prop) => {
             },
 
             tabBarStyle: {
-              backgroundColor: '#000',
+              backgroundColor: '#252525',
               width: '100%',
               height: 40,
               justifyContent: 'center',

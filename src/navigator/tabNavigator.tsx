@@ -31,7 +31,7 @@ const tabOptions = (title?: string, onClick?: () => void) => {
     ),
     headerTintColor: '#fff',
     headerStyle: {
-      backgroundColor: '#000',
+      backgroundColor: '#252525',
       shadowColor: 'transparent',
       elevation: 0,
     },
@@ -107,12 +107,11 @@ const TabNavigator = () => {
             ...tabOptions(),
             tabBarItemStyle: {
               backgroundColor: '#39C1B6',
-              width: 50,
-              height: 50,
               borderRadius: 50,
-              marginTop: -15,
+              marginTop: -20,
+              marginBottom: 4,
               borderWidth: 4,
-              borderColor: 'black',
+              borderColor: '#252525',
             },
             tabBarIcon: () => <AntDesign name="plus" size={24} color="#fff" />,
           })}

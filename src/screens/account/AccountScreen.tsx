@@ -33,7 +33,7 @@ const AccountScreen = () => {
 
   return (
     <View className={`w-[80%]  bg-[#404040]  rounded-lg  items-center`}>
-      <View className="w-[80px] h-[80px] rounded-full mt-[-40px] mb-1 border-[4px] border-black">
+      <View className="w-[80px] h-[80px] rounded-full mt-[-40px] mb-1 border-[4px] border-[#252525]">
         {me?.picture && (
           <Image
             source={{ uri: me!.picture }}

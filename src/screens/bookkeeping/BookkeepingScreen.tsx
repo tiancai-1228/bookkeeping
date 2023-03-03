@@ -96,7 +96,7 @@ const BookkeepingScreen = () => {
             },
 
             tabBarStyle: {
-              backgroundColor: '#000',
+              backgroundColor: '#252525',
               width: '100%',
               height: 40,
               justifyContent: 'center',
@@ -106,7 +106,7 @@ const BookkeepingScreen = () => {
 
             tabBarContentContainerStyle: {
               borderWidth: 2,
-              borderColor: 'gray',
+              borderColor: '#fff',
               backgroundColor: '#404040',
               borderRadius: 10,
               height: 40,

@@ -60,7 +60,7 @@ const ExpensesView = ({ Date, initDate }: Prop) => {
   return (
     <KeyboardAwareScrollView>
       <View className="flex-1 ">
-        <View className="h-[350px] border mt-10 ">
+        <View className="h-[350px]  mt-6 ">
           <ScrollView>
             <View className="flex-row flex-wrap justify-around py-2">
               {BaseExpenses.map((item) => (
