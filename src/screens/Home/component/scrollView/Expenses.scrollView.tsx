@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Animated, Dimensions, ScrollView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
 import { record } from '@/type/bookkeeping';
@@ -11,7 +11,6 @@ interface Prop {
 }
 
 const ExpensesScrollView = ({ expensesList }: Prop) => {
-  const date: string[] = [];
   const { me } = useSelector((state: RootState) => state.account.value);
 
   const handelDelete = (item: record) => {
@@ -26,36 +25,23 @@ const ExpensesScrollView = ({ expensesList }: Prop) => {
     <View className="flex-1  px-4 pt-2 mb-20 ">
       <ScrollView>
         {expensesList.length !== 0 &&
-          expensesList.map((el) => {
-            if (!date.includes(el.date)) {
-              date.push(el.date);
-              return (
-                <View key={el.id}>
-                  <View className="bg-[#404040] px-1 rounded-md my-1">
-                    <Text className="text-white  text-base font-bold">
-                      {el.date}
-                    </Text>
-                  </View>
-                  <BookkeepingItem
-                    item={el}
-                    key={el.id}
-                    onDelete={() => {
-                      handelDelete(el);
-                    }}
-                  />
-                </View>
-              );
-            } else {
-              return (
-                <BookkeepingItem
-                  item={el}
-                  key={el.id}
-                  onDelete={() => {
-                    handelDelete(el);
-                  }}
-                />
-              );
+          expensesList.map((el, index) => {
+            const firstItem = index === 0;
+            let isHeader = false;
+            if (!firstItem) {
+              isHeader = el.date !== expensesList[index - 1].date;
             }
+            return (
+              <BookkeepingItem
+                item={el}
+                key={el.id}
+                index={index}
+                isHeader={firstItem || isHeader}
+                onDelete={() => {
+                  handelDelete(el);
+                }}
+              />
+            );
           })}
       </ScrollView>
     </View>

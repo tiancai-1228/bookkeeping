@@ -11,7 +11,6 @@ interface Prop {
 }
 
 const IncomeScrollView = ({ incomeList }: Prop) => {
-  const date: string[] = [];
   const { me } = useSelector((state: RootState) => state.account.value);
 
   const handelDelete = (item: record) => {
@@ -26,36 +25,23 @@ const IncomeScrollView = ({ incomeList }: Prop) => {
     <View className="flex-1  px-4 pt-2 mb-20 ">
       <ScrollView>
         {incomeList.length !== 0 &&
-          incomeList.map((el) => {
-            if (!date.includes(el.date)) {
-              date.push(el.date);
-              return (
-                <View key={el.id}>
-                  <View className="bg-[#404040] px-1 rounded-md my-1">
-                    <Text className="text-white  text-base font-bold">
-                      {el.date}
-                    </Text>
-                  </View>
-                  <BookkeepingItem
-                    item={el}
-                    key={el.id}
-                    onDelete={() => {
-                      handelDelete(el);
-                    }}
-                  />
-                </View>
-              );
-            } else {
-              return (
-                <BookkeepingItem
-                  item={el}
-                  key={el.id}
-                  onDelete={() => {
-                    handelDelete(el);
-                  }}
-                />
-              );
+          incomeList.map((el, index) => {
+            const firstItem = index === 0;
+            let isHeader = false;
+            if (!firstItem) {
+              isHeader = el.date !== incomeList[index - 1].date;
             }
+            return (
+              <BookkeepingItem
+                item={el}
+                key={el.id}
+                index={index}
+                isHeader={firstItem || isHeader}
+                onDelete={() => {
+                  handelDelete(el);
+                }}
+              />
+            );
           })}
       </ScrollView>
     </View>
