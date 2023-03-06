@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ScrollView, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
 import { ScreenProp } from '@/navigator/main.stack';
@@ -58,33 +57,31 @@ const ExpensesView = ({ Date, initDate }: Prop) => {
   }, []);
 
   return (
-    <KeyboardAwareScrollView>
-      <View className="flex-1 ">
-        <View className="h-[350px]  mt-6 ">
-          <ScrollView>
-            <View className="flex-row flex-wrap justify-around py-2">
-              {BaseExpenses.map((item) => (
-                <CategoryItem
-                  key={item.name}
-                  item={item}
-                  currentCategory={currentCategory}
-                  onClick={(val) => {
-                    setCurrentCategory(val);
-                  }}
-                />
-              ))}
-            </View>
-          </ScrollView>
-        </View>
-
-        <Calculator
-          initDate={initDate}
-          onPress={(count, memo) => {
-            handelSubmit(count, memo);
-          }}
-        />
+    <View className="flex-1 ">
+      <View className="h-[350px]  mt-6 ">
+        <ScrollView>
+          <View className="flex-row flex-wrap justify-around pt-2 pb-20">
+            {BaseExpenses.map((item) => (
+              <CategoryItem
+                key={item.name}
+                item={item}
+                currentCategory={currentCategory}
+                onClick={(val) => {
+                  setCurrentCategory(val);
+                }}
+              />
+            ))}
+          </View>
+        </ScrollView>
       </View>
-    </KeyboardAwareScrollView>
+
+      <Calculator
+        initDate={initDate}
+        onPress={(count, memo) => {
+          handelSubmit(count, memo);
+        }}
+      />
+    </View>
   );
 };
 

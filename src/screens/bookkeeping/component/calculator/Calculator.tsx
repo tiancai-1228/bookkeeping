@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Animated,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { record } from '@/type/bookkeeping';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,10 +19,27 @@ interface Prop {
 const Calculator = ({ initDate, onPress }: Prop) => {
   const [count, setCount] = useState<string>('');
   const [memo, setMemo] = React.useState('');
+  const animatedHeight = useRef(new Animated.Value(0)).current;
   const { t } = useTranslation();
 
   const pluse = (count: string) => {
     setCount((pre) => pre + count);
+  };
+
+  const handelFocus = () => {
+    Animated.timing(animatedHeight, {
+      toValue: -100,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const handelBlur = () => {
+    Animated.timing(animatedHeight, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
   };
 
   useEffect(() => {
@@ -26,7 +49,10 @@ const Calculator = ({ initDate, onPress }: Prop) => {
   }, []);
 
   return (
-    <View className="bg-[#404040] h-full">
+    <Animated.View
+      className="bg-[#404040] h-full"
+      style={{ marginTop: animatedHeight }}
+    >
       <View className="flex-row items-center mt-2">
         <Text className="text-xl text-white w-[20%] pl-2">{t('amount')} :</Text>
 
@@ -42,6 +68,12 @@ const Calculator = ({ initDate, onPress }: Prop) => {
             className=" w-full h-10 text-right text-white text-xl"
             onChangeText={(s) => {
               setMemo(s);
+            }}
+            onFocus={() => {
+              handelFocus();
+            }}
+            onBlur={() => {
+              handelBlur();
             }}
             value={memo}
           />
@@ -155,7 +187,7 @@ const Calculator = ({ initDate, onPress }: Prop) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

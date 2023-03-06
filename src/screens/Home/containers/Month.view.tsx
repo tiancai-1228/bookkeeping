@@ -86,7 +86,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
               {t('monthly_balance')}:
             </Text>
             <Text className="text-4xl mt-2 font-bold text-w" numberOfLines={1}>
-              $ {numberSeparator(expenses.total - incomeList.total)}
+              $ {numberSeparator(incomeList.total - expenses.total)}
             </Text>
 
             <View className="w-full  mb-2 flex-row justify-between mt-2">
