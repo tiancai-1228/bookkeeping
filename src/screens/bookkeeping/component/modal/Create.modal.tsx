@@ -3,25 +3,29 @@ import { Text, TextInput, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
-import { bookkeeping } from '@/type/bookkeeping';
-import { createBookkeeping } from '@/firebase/set/bookkeeping';
 import { Button } from '@rneui/themed';
 import { t } from 'i18next';
 
 interface Props {
+  submitTitle: string;
   Visible: boolean;
   onClose: () => void;
-  onCreated?: (value: bookkeeping | null) => void;
+  initData?: string;
+  onPress?: (value: string) => void;
 }
 
-const CreateModal = ({ Visible, onClose, onCreated }: Props) => {
-  const { me } = useSelector((state: RootState) => state.account.value);
-  const [inputData, setInputData] = useState('');
+const CreateModal = ({
+  submitTitle,
+  Visible,
+  initData,
+  onClose,
+  onPress,
+}: Props) => {
+  const [inputData, setInputData] = useState(initData || '');
 
   const handelCreateBookkeeping = async (name: string) => {
-    const res = await createBookkeeping(me!.id, name);
+    onPress?.(name);
     setInputData('');
-    onCreated?.(res);
     onClose();
   };
 
@@ -62,7 +66,7 @@ const CreateModal = ({ Visible, onClose, onCreated }: Props) => {
           }}
         />
         <Button
-          title={`${t('add')}`}
+          title={submitTitle}
           style={{ width: 200 }}
           color={'#39C1B6'}
           onPress={() => {

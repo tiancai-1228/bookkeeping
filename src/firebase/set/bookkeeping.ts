@@ -9,7 +9,6 @@ import {
 } from 'firebase/database';
 import { bookkeeping } from '@/type/bookkeeping';
 import { category } from '@/type/categories';
-import moment from 'moment';
 import { db } from '../firebase';
 import { getBookkeeping } from '../get/bookkeeping';
 
@@ -31,6 +30,18 @@ export const createBookkeeping = async (
     console.log(error);
     return null;
   }
+};
+
+export const updateBookkeeping = async (
+  id: string,
+  bookkeepingId: string,
+  name: string,
+) => {
+  const Endpoint = `users/${id}/bookkeeping/${bookkeepingId}`;
+
+  update(ref(db, Endpoint), {
+    name,
+  });
 };
 
 //刪除記帳簿

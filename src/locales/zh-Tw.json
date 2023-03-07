@@ -64,5 +64,8 @@
   "trade": "交易",
   "stock": "股票 ",
   "picked_up_money": "撿到錢",
-  "investment": "投資"
+  "investment": "投資",
+  "edit_success": "編輯成功",
+  "edit_fail": "編輯失敗",
+  "edit": "編輯"
 }

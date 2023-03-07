@@ -8,7 +8,10 @@ import { useNavigation } from '@react-navigation/native';
 import { bookkeeping } from '@/type/bookkeeping';
 import { getBookkeepingList } from '@/firebase/get/bookkeeping';
 import { setCurrentBookkeeping } from '@/firebase/set/account';
-import { deleteBookkeeping } from '@/firebase/set/bookkeeping';
+import {
+  createBookkeeping,
+  deleteBookkeeping,
+} from '@/firebase/set/bookkeeping';
 import { AntDesign } from '@expo/vector-icons';
 import { t } from 'i18next';
 import BookkeepingItem from './component/item/bookkeeping.item';
@@ -61,6 +64,11 @@ const DetailScreen = () => {
     } catch (error) {
       Alert.alert(t('switch_fail'));
     }
+  };
+
+  const handelCreateBookkeeping = async (name: string) => {
+    const res = await createBookkeeping(me!.id, name);
+    res && setList((pre) => [...pre, res]);
   };
 
   useLayoutEffect(() => {
@@ -140,12 +148,13 @@ const DetailScreen = () => {
       </View>
 
       <CreateModal
+        submitTitle={`${t('add')}`}
         Visible={modalVisible}
         onClose={() => {
           setModalVisible(false);
         }}
-        onCreated={(val) => {
-          val && setList((pre) => [...pre, val]);
+        onPress={(val) => {
+          val && handelCreateBookkeeping(val);
         }}
       />
     </View>

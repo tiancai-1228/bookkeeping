@@ -64,5 +64,8 @@
   "trade": "Trade",
   "stock": "Stock ",
   "picked_up_money": "Picked Up Money",
-  "investment": "Investment"
+  "investment": "Investment",
+  "edit_success": "Edit Success",
+  "edit_fail": "Edit Fail",
+  "edit": "Edit"
 }
