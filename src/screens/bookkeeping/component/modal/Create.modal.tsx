@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import Modal from 'react-native-modal';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/rootSlices';
 import { Button } from '@rneui/themed';
 import { t } from 'i18next';
 

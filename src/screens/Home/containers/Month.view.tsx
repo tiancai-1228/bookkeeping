@@ -8,7 +8,6 @@ import { bookkeeping, record } from '@/type/bookkeeping';
 import MonthPickerModal from '@/components/modal/MonthPicker.modal';
 import { AntDesign } from '@expo/vector-icons';
 import { t } from 'i18next';
-import moment from 'moment';
 import HomeTab from '../component/tab/Home.tab';
 
 interface Prop {

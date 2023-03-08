@@ -3,10 +3,10 @@ import { Text, View } from 'react-native';
 import { bookkeeping } from '@/type/bookkeeping';
 
 interface Prop {
-  data: bookkeeping;
+  bookkeepingData: bookkeeping;
 }
 
-const CalendarView = ({ data }: Prop) => {
+const CalendarView = ({ bookkeepingData }: Prop) => {
   return (
     <View>
       <Text>CalendarView</Text>

@@ -6,12 +6,12 @@ import { RootState } from '@/redux/rootSlices';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import HeaderLeftButton from '@/components/button/HeaderLeft.button';
-import HeaderRightButton from '@/components/button/HeaderRight.button';
 import BookkeepingBaseScreen from '@/screens/bookkeeping/BookkeepingBaseScreen';
 import HomeScreen from '@/screens/Home/HomeScreen';
 import ReportScreen from '@/screens/report/ReportScreen';
 import { AntDesign } from '@expo/vector-icons';
-import { Icon } from '@rneui/themed';
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { ScreenProp } from './main.stack';
 
 export type BottomTabParamList = {
@@ -84,10 +84,13 @@ const TabNavigator = () => {
               navigation.navigate('BookkeepingDetail');
             }),
             headerLeft: () => <HeaderLeftButton />,
-            headerRight: () => <HeaderRightButton />,
             tabBarIcon: ({ focused }: { focused: boolean }) => (
               <View className={`${focused ? 'mb-2' : ''}`}>
-                <Icon name="home" color={focused ? '#39C1B6' : '#fff'} />
+                <Entypo
+                  name="pencil"
+                  size={24}
+                  color={focused ? '#39C1B6' : '#fff'}
+                />
               </View>
             ),
           })}
@@ -124,7 +127,11 @@ const TabNavigator = () => {
             headerLeft: () => <HeaderLeftButton />,
             tabBarIcon: ({ focused }: { focused: boolean }) => (
               <View className={`${focused ? 'mb-2' : ''}`}>
-                <Icon name="home" color={focused ? '#39C1B6' : '#fff'} />
+                <FontAwesome
+                  name="bar-chart-o"
+                  size={24}
+                  color={focused ? '#39C1B6' : '#fff'}
+                />
               </View>
             ),
           })}
