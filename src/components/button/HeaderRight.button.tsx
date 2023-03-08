@@ -22,7 +22,7 @@ const HeaderRightButton = ({ type, onPress }: Prop) => {
         {type === enumViewType.Calendar && (
           <MaterialCommunityIcons
             name="playlist-edit"
-            size={30}
+            size={40}
             color="white"
           />
         )}
