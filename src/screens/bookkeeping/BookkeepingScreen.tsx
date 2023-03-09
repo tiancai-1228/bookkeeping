@@ -25,8 +25,8 @@ const BookkeepingScreen = () => {
   const [visible, setVisible] = useState(false);
   const [Date, setDate] = useState<bookkeepingDate>({
     year: moment().format('yyyy'),
-    month: moment().format('M'),
-    date: moment().format('D'),
+    month: moment().format('MM'),
+    date: moment().format('DD'),
   });
   const Tab = createMaterialTopTabNavigator();
   const navigation = useNavigation<ScreenProp>();

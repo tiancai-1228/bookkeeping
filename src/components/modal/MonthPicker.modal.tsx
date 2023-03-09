@@ -15,7 +15,7 @@ interface Prop {
 
 const MonthPickerModal = ({ Visible, year, month, onClose, onPress }: Prop) => {
   const [newYear, setNewYear] = useState(parseInt(year));
-  const [newMonth, setNewMonth] = useState(parseInt(month));
+  const [newMonth, setNewMonth] = useState(month);
 
   const monthNames = [
     t('jan'),
@@ -73,15 +73,18 @@ const MonthPickerModal = ({ Visible, year, month, onClose, onPress }: Prop) => {
             <TouchableOpacity
               key={index}
               className={`w-[30%] rounded-lg p-2 justify-center items-center mb-3 bg-slate-400  border-2  ${
-                index == newMonth - 1 ? 'border-[#45dac5]' : 'border-white'
+                index == parseInt(newMonth) - 1
+                  ? 'border-[#45dac5]'
+                  : 'border-white'
               } `}
               onPress={() => {
-                setNewMonth(index + 1);
+                const month = index + 1 > 9 ? `${index + 1}` : `0${index + 1}`;
+                setNewMonth(month);
               }}
             >
               <Text
                 className={`font-bold  ${
-                  index == newMonth - 1 && 'text-[#45dac5]'
+                  index == parseInt(newMonth) - 1 && 'text-[#45dac5]'
                 }`}
               >
                 {el}
@@ -95,7 +98,7 @@ const MonthPickerModal = ({ Visible, year, month, onClose, onPress }: Prop) => {
             style={{ width: 200 }}
             color={'#39C1B6'}
             onPress={() => {
-              onPress(newYear.toString(), newMonth.toString());
+              onPress(newYear.toString(), newMonth);
               onClose();
             }}
           />
