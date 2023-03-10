@@ -68,7 +68,7 @@ const CalendarView = ({ bookkeepingData }: Prop) => {
   }, [incomeList, calendar]);
 
   return (
-    <View className="w-full mt-4">
+    <View className="w-full flex-1 mt-4">
       <CustomerCalendar
         data={[...expensesList, ...incomeList]}
         initDate={calendar}

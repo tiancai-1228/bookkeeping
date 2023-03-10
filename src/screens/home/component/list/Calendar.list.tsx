@@ -39,7 +39,9 @@ const CalendarList = ({ data }: Prop) => {
   };
 
   const renderItem = ({ item }: { item: record }) => {
+    if (data.length === 0) return <></>;
     const color = item.type === 'expenses' ? '#cf667a' : '#39C1B6';
+    const isLast = item.id === data[data.length - 1].id;
     return (
       <View className="w-[95%] m-auto">
         <ListItem.Swipeable
@@ -92,6 +94,7 @@ const CalendarList = ({ data }: Prop) => {
             </Text>
           </View>
         </ListItem.Swipeable>
+        {isLast && <View className="mb-[100px]" />}
       </View>
     );
   };
@@ -102,7 +105,7 @@ const CalendarList = ({ data }: Prop) => {
   return (
     <FlatList
       data={item}
-      className=" h-[280px] "
+      className="mt-2"
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
     />

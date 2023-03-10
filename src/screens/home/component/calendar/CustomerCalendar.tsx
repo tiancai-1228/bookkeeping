@@ -61,32 +61,30 @@ const CustomerCalendar = ({ data, initDate }: Prop) => {
   }, [data]);
 
   return (
-    <View>
-      <Calendar
-        initialDate={date}
-        monthFormat={`yyyy '${t('year')}' MM '${t('month')}' `}
-        onDayPress={(d) => {
-          handelDayPress(d, baseMarked);
-        }}
-        markedDates={markedDates}
-        theme={{
-          backgroundColor: '#404040',
-          calendarBackground: '#404040',
-          textSectionTitleColor: '#d9e1e8',
-          textSectionTitleDisabledColor: '#d9e1e8',
-          selectedDayBackgroundColor: '#00adf5',
-          selectedDayTextColor: '#2d4150',
-          todayTextColor: '#00adf5',
-          dayTextColor: '#fff',
-          textDisabledColor: 'gray',
-          dotColor: '#00adf5',
-          selectedDotColor: '#ffffff',
-          arrowColor: 'orange',
-          disabledArrowColor: '#d9e1e8',
-          monthTextColor: '#ffffff',
-        }}
-      />
-    </View>
+    <Calendar
+      initialDate={date}
+      monthFormat={`yyyy '${t('year')}' MM '${t('month')}' `}
+      onDayPress={(d) => {
+        handelDayPress(d, baseMarked);
+      }}
+      markedDates={markedDates}
+      theme={{
+        backgroundColor: '#404040',
+        calendarBackground: '#404040',
+        textSectionTitleColor: '#d9e1e8',
+        textSectionTitleDisabledColor: '#d9e1e8',
+        selectedDayBackgroundColor: '#00adf5',
+        selectedDayTextColor: '#2d4150',
+        todayTextColor: '#00adf5',
+        dayTextColor: '#fff',
+        textDisabledColor: 'gray',
+        dotColor: '#00adf5',
+        selectedDotColor: '#ffffff',
+        arrowColor: 'orange',
+        disabledArrowColor: '#d9e1e8',
+        monthTextColor: '#ffffff',
+      }}
+    />
   );
 };
 
