@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import HeaderLeftButton from '@/components/button/HeaderLeft.button';
 import BookkeepingBaseScreen from '@/screens/bookkeeping/BookkeepingBaseScreen';
-import HomeScreen from '@/screens/ome/HomeScreen';
+import HomeScreen from '@/screens/home/HomeScreen';
 import ReportScreen from '@/screens/report/ReportScreen';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
