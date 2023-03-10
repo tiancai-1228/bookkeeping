@@ -15,8 +15,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { ScreenProp } from './main.stack';
 
 export type BottomTabParamList = {
-  BottomTab: { screen: 'Home' | 'create' | 'Report' };
-  create: { Id: string; title: string };
+  BottomTab: { screen: 'Home' | 'Create' | 'Report' };
+  Create: { Id: string; title: string };
+  Report: undefined;
 };
 
 const Tab = createBottomTabNavigator();
@@ -96,7 +97,7 @@ const TabNavigator = () => {
           })}
         />
         <Tab.Screen
-          name="create"
+          name="Create"
           component={BookkeepingBaseScreen}
           listeners={() => ({
             tabPress: (e) => {

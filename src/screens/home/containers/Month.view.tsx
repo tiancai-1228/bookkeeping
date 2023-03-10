@@ -3,6 +3,8 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
 import { setMonthSlice, setYearSlice } from '@/redux/slices/bookkeepingSlice';
+import { ScreenProp } from '@/navigator/main.stack';
+import { useNavigation } from '@react-navigation/native';
 import { numberSeparator } from '@/utils/number';
 import { bookkeeping, record } from '@/type/bookkeeping';
 import MonthPickerModal from '@/components/modal/MonthPicker.modal';
@@ -17,6 +19,7 @@ interface Prop {
 const MonthView = ({ bookkeepingData }: Prop) => {
   const [visible, setVisible] = useState(false);
 
+  const navigation = useNavigation<ScreenProp>();
   const dispatch = useDispatch();
   const { year, month } = useSelector(
     (state: RootState) => state.bookkeeping.value,
@@ -78,7 +81,12 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       </TouchableOpacity>
 
       {/* card */}
-      <View className="w-[90%] h-[140px] bg-[#31a299] rounded-xl p-3 shadow shadow-gray-400">
+      <TouchableOpacity
+        className="w-[90%] h-[140px] bg-[#31a299] rounded-xl p-3 shadow shadow-gray-400"
+        onPress={() => {
+          navigation.navigate('Report');
+        }}
+      >
         <View className="w-full justify-between flex-row">
           <View className="w-full h-[120px] justify-between ">
             <Text className="text-base font-bold" numberOfLines={1}>
@@ -115,7 +123,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
       {/* list */}
       <HomeTab expensesList={expenses.list} incomeList={income.list} />
