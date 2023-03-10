@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginScreen from '@/screens/ogin/LoginScreen';
+import LoginScreen from '@/screens/login/LoginScreen';
 import SplashScreen from '@/screens/SplashScreen';
 import { RootStack } from '../rootNavigator';
 
