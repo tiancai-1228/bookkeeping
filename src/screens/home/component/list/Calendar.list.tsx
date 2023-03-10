@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
-import { ScreenProp } from '@/navigator/main.stack';
-import { useNavigation } from '@react-navigation/native';
-import useCategories from '@/hook/useCategories.hook';
-import { numberSeparator } from '@/utils/number';
 import { record } from '@/type/bookkeeping';
 import { deleteIncome } from '@/firebase/set/bookkeeping';
-import { Button, ListItem } from '@rneui/themed';
+import CalendarItem from '../item/Calendar.item';
 
 interface Prop {
   data: record[];
@@ -17,11 +12,7 @@ interface Prop {
 
 const CalendarList = ({ data }: Prop) => {
   const [item, setItem] = useState<record[]>([]);
-
   const { me } = useSelector((state: RootState) => state.account.value);
-  const navigation = useNavigation<ScreenProp>();
-  const { t } = useTranslation();
-  const { icons } = useCategories();
 
   const sortItem = (data: record[]) => {
     const list = data.sort(function (a, b) {
@@ -38,75 +29,31 @@ const CalendarList = ({ data }: Prop) => {
     });
   };
 
-  const renderItem = ({ item }: { item: record }) => {
-    if (data.length === 0) return <></>;
-    const color = item.type === 'expenses' ? '#cf667a' : '#39C1B6';
-    return (
-      <View className="w-[95%] m-auto">
-        <ListItem.Swipeable
-          containerStyle={{
-            backgroundColor: '#252525',
-            flexDirection: 'row',
-            padding: 0,
-            paddingVertical: 4,
-            paddingHorizontal: 20,
-            justifyContent: 'space-between',
-            borderBottomWidth: 1,
-          }}
-          onPress={() => {
-            item.type === 'expenses' &&
-              navigation.navigate('Bookkeeping', {
-                type: item.type,
-                expenses: item,
-              });
-            item.type === 'income' &&
-              navigation.navigate('Bookkeeping', {
-                type: item.type,
-                income: item,
-              });
-          }}
-          rightContent={() => (
-            <Button
-              title=""
-              onPress={() => {
-                handelDelete(item);
-              }}
-              icon={{ name: 'delete', color: 'white' }}
-              buttonStyle={{ height: '100%', backgroundColor: 'red' }}
-            />
-          )}
-        >
-          <View className="flex-row">
-            {icons(item.category.type, item.category.icon, 40, color)}
-            <View className="ml-6 justify-center">
-              <Text className=" text-lg font-bold" style={{ color: color }}>
-                {t(`${item.category.name}`)}
-              </Text>
-              {item.memo && (
-                <Text className="text-gray-400 text-base ">{item.memo}</Text>
-              )}
-            </View>
-          </View>
-          <View>
-            <Text className=" text-lg font-bold" style={{ color: color }}>
-              $ {numberSeparator(item.count)}
-            </Text>
-          </View>
-        </ListItem.Swipeable>
-      </View>
-    );
-  };
-
   useEffect(() => {
     sortItem(data);
   }, [data]);
+
   return (
-    <FlatList
-      data={item}
-      className="mt-2 mb-[100px]"
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-    />
+    <ScrollView className="mb-[100px]">
+      {item.length !== 0 &&
+        item.map((el, index) => {
+          const firstItem = index === 0;
+          let isHeader = false;
+          if (!firstItem) {
+            isHeader = el.date !== item[index - 1].date;
+          }
+          return (
+            <CalendarItem
+              item={el}
+              key={el.id}
+              index={index}
+              onDelete={() => {
+                handelDelete(el);
+              }}
+            />
+          );
+        })}
+    </ScrollView>
   );
 };
 

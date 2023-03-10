@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Animated, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { ScreenProp } from '@/navigator/main.stack';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import useCategories from '@/hook/useCategories.hook';
+import useItemAnimated from '@/hook/useItemAnimated.hook';
 import { record } from '@/type/bookkeeping';
 import { Button, ListItem } from '@rneui/themed';
 
@@ -17,36 +18,9 @@ interface Prop {
 const BookkeepingItem = ({ item, isHeader, index, onDelete }: Prop) => {
   const { t } = useTranslation();
   const { icons } = useCategories();
-  const navigation = useNavigation<ScreenProp>();
   const isFocused = useIsFocused();
-  const rightValue = useRef(new Animated.Value(1000)).current;
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  const close = () => {
-    Animated.timing(rightValue, {
-      toValue: 1000,
-      duration: 100,
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 100,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const start = () => {
-    Animated.timing(rightValue, {
-      toValue: 0,
-      duration: index * 200 + 500,
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  };
+  const navigation = useNavigation<ScreenProp>();
+  const { start, close, rightValue, fadeAnim } = useItemAnimated(index);
 
   React.useEffect(() => {
     if (!isFocused) {
