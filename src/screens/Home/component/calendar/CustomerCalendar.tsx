@@ -64,7 +64,7 @@ const CustomerCalendar = ({ data, initDate }: Prop) => {
     <View>
       <Calendar
         initialDate={date}
-        monthFormat={`yyyy ${t('year')} MM ${t('month')} `}
+        monthFormat={`yyyy '${t('year')}' MM '${t('month')}' `}
         onDayPress={(d) => {
           handelDayPress(d, baseMarked);
         }}
