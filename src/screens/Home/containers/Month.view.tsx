@@ -78,37 +78,38 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       </TouchableOpacity>
 
       {/* card */}
-      <View className="w-[90%] h-[150px] bg-[#31a299] rounded-xl p-3 shadow shadow-gray-400">
+      <View className="w-[90%] h-[140px] bg-[#31a299] rounded-xl p-3 shadow shadow-gray-400">
         <View className="w-full justify-between flex-row">
           <View className="w-full h-[120px] justify-between ">
-            <View>
-              <Text className="text-base font-bold" numberOfLines={1}>
-                {t('monthly_balance')}:
-              </Text>
-              <Text
-                className="text-4xl mt-2 font-bold text-w"
-                numberOfLines={1}
-              >
-                $ {numberSeparator(income.total - expenses.total)}
-              </Text>
-            </View>
+            <Text className="text-base font-bold" numberOfLines={1}>
+              {t('monthly_balance')}:
+            </Text>
+            <Text className="text-4xl mt-2 font-bold text-w" numberOfLines={1}>
+              $ {numberSeparator(income.total - expenses.total)}
+            </Text>
 
             <View className="w-full  flex-row justify-between ">
               <View className=" justify-around  ">
-                <Text className=" text-sm font-bold" numberOfLines={1}>
+                <Text className=" text-sm font-bold " numberOfLines={1}>
                   {t('monthly_expenses')}:
-                  <Text className=" text-base font-bold" numberOfLines={1}>
-                    $ {numberSeparator(expenses.total)}
-                  </Text>
+                </Text>
+                <Text
+                  className=" text-base font-bold text-[#b00420] "
+                  numberOfLines={1}
+                >
+                  $ {numberSeparator(expenses.total)}
                 </Text>
               </View>
 
               <View className="justify-around ">
                 <Text className=" text-sm font-bold" numberOfLines={1}>
                   {t('monthly_income')}:
-                  <Text className=" text-base font-bold" numberOfLines={1}>
-                    $ {numberSeparator(income.total)}
-                  </Text>
+                </Text>
+                <Text
+                  className=" text-base font-bold text-[#3700b3]"
+                  numberOfLines={1}
+                >
+                  $ {numberSeparator(income.total)}
                 </Text>
               </View>
             </View>

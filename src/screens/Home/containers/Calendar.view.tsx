@@ -74,29 +74,28 @@ const CalendarView = ({ bookkeepingData }: Prop) => {
         initDate={calendar}
       />
       <View className="w-full border-y-4 border-gray-500 py-2 flex-row justify-around">
-        <Text className=" text-sm font-bold text-white" numberOfLines={1}>
-          {t('expenses')}: {''}
-          <Text
-            className=" text-sm font-bold text-[#cf667a] "
-            numberOfLines={1}
-          >
+        <View>
+          <Text className=" text-sm font-bold text-white">
+            {t('expenses')}:
+          </Text>
+          <Text className=" text-sm font-bold text-[#cf667a] ">
             $ {numberSeparator(expenses.total)}
           </Text>
-        </Text>
-
-        <Text className=" text-sm font-bold text-white" numberOfLines={1}>
-          {t('income')}: {''}
+        </View>
+        <View>
+          <Text className=" text-sm font-bold text-white">{t('income')}:</Text>
           <Text className=" text-sm font-bold text-[#00B0BF]" numberOfLines={1}>
             $ {numberSeparator(income.total)}
           </Text>
-        </Text>
-
-        <Text className=" text-sm font-bold text-white" numberOfLines={1}>
-          {t('balance')}: {''}
+        </View>
+        <View>
+          <Text className=" text-sm font-bold text-white" numberOfLines={1}>
+            {t('balance')}:
+          </Text>
           <Text className=" text-sm font-bold text-[#dbb2ff]" numberOfLines={1}>
             $ {numberSeparator(income.total - expenses.total)}
           </Text>
-        </Text>
+        </View>
       </View>
       <CalendarList data={[...expenses.list, ...income.list]} />
     </View>
