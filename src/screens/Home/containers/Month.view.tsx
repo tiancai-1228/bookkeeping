@@ -48,7 +48,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
     };
   }, [data, year, month]);
 
-  const incomeList = useMemo(() => {
+  const income = useMemo(() => {
     if (!data) return { list: [], total: 0 };
     const income = data?.[`${year}`]?.[`${month}`]?.['income'];
     const incomeList: record[] = income ? Object.values(income) : [];
@@ -80,30 +80,35 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       {/* card */}
       <View className="w-[90%] h-[150px] bg-[#31a299] rounded-xl p-3 shadow shadow-gray-400">
         <View className="w-full justify-between flex-row">
-          <View className="w-full justify-around ">
-            <Text className="text-base font-bold" numberOfLines={1}>
-              {t('monthly_balance')}:
-            </Text>
-            <Text className="text-4xl mt-2 font-bold text-w" numberOfLines={1}>
-              $ {numberSeparator(incomeList.total - expenses.total)}
-            </Text>
+          <View className="w-full h-[120px] justify-between ">
+            <View>
+              <Text className="text-base font-bold" numberOfLines={1}>
+                {t('monthly_balance')}:
+              </Text>
+              <Text
+                className="text-4xl mt-2 font-bold text-w"
+                numberOfLines={1}
+              >
+                $ {numberSeparator(income.total - expenses.total)}
+              </Text>
+            </View>
 
-            <View className="w-full  mb-2 flex-row justify-between mt-2">
+            <View className="w-full  flex-row justify-between ">
               <View className=" justify-around  ">
                 <Text className=" text-sm font-bold" numberOfLines={1}>
                   {t('monthly_expenses')}:
-                </Text>
-                <Text className=" text-base font-bold" numberOfLines={1}>
-                  $ {numberSeparator(expenses.total)}
+                  <Text className=" text-base font-bold" numberOfLines={1}>
+                    $ {numberSeparator(expenses.total)}
+                  </Text>
                 </Text>
               </View>
 
               <View className="justify-around ">
                 <Text className=" text-sm font-bold" numberOfLines={1}>
                   {t('monthly_income')}:
-                </Text>
-                <Text className=" text-base font-bold" numberOfLines={1}>
-                  $ {numberSeparator(incomeList.total)}
+                  <Text className=" text-base font-bold" numberOfLines={1}>
+                    $ {numberSeparator(income.total)}
+                  </Text>
                 </Text>
               </View>
             </View>
@@ -112,7 +117,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
       </View>
 
       {/* list */}
-      <HomeTab expensesList={expenses.list} incomeList={incomeList.list} />
+      <HomeTab expensesList={expenses.list} incomeList={income.list} />
 
       <MonthPickerModal
         Visible={visible}

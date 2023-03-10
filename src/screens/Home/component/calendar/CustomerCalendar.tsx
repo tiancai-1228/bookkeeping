@@ -1,38 +1,46 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Calendar, DateData } from 'react-native-calendars';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/rootSlices';
-import {
-  setCalendarSlice,
-  setMonthSlice,
-} from '@/redux/slices/bookkeepingSlice';
-import { bookkeeping, record } from '@/type/bookkeeping';
-import { bookkeepingDate } from '@/type/common';
+import { useDispatch } from 'react-redux';
+import { setCalendarSlice } from '@/redux/slices/bookkeepingSlice';
+import { record } from '@/type/bookkeeping';
+import { bookkeepingDate, MarkedDates } from '@/type/common';
 import moment from 'moment';
 
 interface Prop {
-  data: bookkeeping['data'];
+  data: record[];
   initDate: bookkeepingDate;
-  onDayPress: (date: bookkeepingDate | null) => void;
 }
 
-const CustomerCalendar = ({ data, initDate, onDayPress }: Prop) => {
-  const [markedDates, setMarkedDates] = useState<any>({});
+const CustomerCalendar = ({ data, initDate }: Prop) => {
+  const [markedDates, setMarkedDates] = useState<MarkedDates>({});
+  const [baseMarked, setBaseMarked] = useState<MarkedDates>({});
+
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const date = `${initDate.year}-${initDate.month}-${initDate.date}`;
 
-  const getSelectedDayEvents = (date: string) => {
-    let markedDates: any = {};
-    markedDates[date] = {
-      selected: true,
-      color: '#00B0BF',
-      textColor: '#FFFFFF',
-    };
-    setMarkedDates(markedDates);
+  const getInitData = (data: record[]) => {
+    let markedDates: MarkedDates = {};
+    data.forEach((el) => {
+      markedDates[el.date] = { marked: true };
+    });
+    setBaseMarked(markedDates);
+    getSelectedDayEvents(date, markedDates);
   };
 
-  const handelDayPress = (day: DateData) => {
+  const getSelectedDayEvents = (date: string, baseMarked: MarkedDates) => {
+    let marked: MarkedDates = { ...baseMarked };
+    marked[date] = {
+      selected: true,
+      selectedColor: '#00B0BF',
+      marked: !!marked[date],
+    };
+    setMarkedDates(marked);
+  };
+
+  const handelDayPress = (day: DateData, baseMarked: MarkedDates) => {
     const dateString = day.dateString;
     const date = {
       year: moment(dateString).format('yyyy'),
@@ -40,25 +48,26 @@ const CustomerCalendar = ({ data, initDate, onDayPress }: Prop) => {
       date: moment(dateString).format('DD'),
     };
 
-    getSelectedDayEvents(dateString);
+    getSelectedDayEvents(dateString, baseMarked);
     dispatch(
       setCalendarSlice({
         date: date,
       }),
     );
-    onDayPress(date);
   };
 
   useEffect(() => {
-    getSelectedDayEvents(date);
+    getInitData(data);
   }, []);
 
   return (
     <View>
       <Calendar
         initialDate={date}
-        monthFormat={'yyyy-MM'}
-        onDayPress={handelDayPress}
+        monthFormat={`yyyy ${t('year')} MM ${t('month')} `}
+        onDayPress={(d) => {
+          handelDayPress(d, baseMarked);
+        }}
         markedDates={markedDates}
         theme={{
           backgroundColor: '#404040',
