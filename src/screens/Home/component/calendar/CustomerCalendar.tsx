@@ -58,7 +58,7 @@ const CustomerCalendar = ({ data, initDate }: Prop) => {
 
   useEffect(() => {
     getInitData(data);
-  }, []);
+  }, [data]);
 
   return (
     <View>
