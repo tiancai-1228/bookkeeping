@@ -68,5 +68,8 @@
   "edit_success": "編輯成功",
   "edit_fail": "編輯失敗",
   "edit": "編輯",
-  "balance": "結餘"
+  "balance": "結餘",
+  "day": "日",
+  "date_details": "日期明細",
+  "empty": "暫無資料"
 }

@@ -68,5 +68,8 @@
   "edit_success": "Edit Success",
   "edit_fail": "Edit Fail",
   "edit": "Edit",
-  "balance": "Balance"
+  "balance": "Balance",
+  "day": "Day",
+  "date_details": "Date Details",
+  "empty": "Empty"
 }

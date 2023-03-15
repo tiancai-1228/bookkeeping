@@ -5,6 +5,7 @@ import { RootState } from '@/redux/rootSlices';
 import { setMonthSlice, setYearSlice } from '@/redux/slices/bookkeepingSlice';
 import { ScreenProp } from '@/navigator/main.stack';
 import { useNavigation } from '@react-navigation/native';
+import useBookkeepingFormat from '@/hook/useBookkeepingFormat.hook';
 import { numberSeparator } from '@/utils/number';
 import { bookkeeping, record } from '@/type/bookkeeping';
 import MonthPickerModal from '@/components/modal/MonthPicker.modal';
@@ -17,6 +18,7 @@ interface Prop {
 }
 
 const MonthView = ({ bookkeepingData }: Prop) => {
+  const { data } = bookkeepingData;
   const [visible, setVisible] = useState(false);
 
   const navigation = useNavigation<ScreenProp>();
@@ -24,46 +26,7 @@ const MonthView = ({ bookkeepingData }: Prop) => {
   const { year, month } = useSelector(
     (state: RootState) => state.bookkeeping.value,
   );
-
-  const { data } = bookkeepingData;
-
-  const sortFn = (a: record, b: record) => {
-    const first = a.date.split('-');
-    const firstDate = parseInt(`${first[0]}${first[1]}${first[2]}`);
-    const last = b.date.split('-');
-    const lastDate = parseInt(`${last[0]}${last[1]}${last[2]}`);
-    return lastDate > firstDate ? -1 : lastDate < firstDate ? 1 : 0;
-  };
-
-  const expenses = useMemo(() => {
-    if (!data) return { list: [], total: 0 };
-    const expenses = data?.[`${year}`]?.[`${month}`]?.['expenses'];
-    const expensesList: record[] = expenses ? Object.values(expenses) : [];
-
-    const total = expensesList.reduce((pre, curr) => {
-      pre = pre + curr.count;
-      return pre;
-    }, 0);
-
-    return {
-      list: expensesList.sort(sortFn).reverse(),
-      total: total,
-    };
-  }, [data, year, month]);
-
-  const income = useMemo(() => {
-    if (!data) return { list: [], total: 0 };
-    const income = data?.[`${year}`]?.[`${month}`]?.['income'];
-    const incomeList: record[] = income ? Object.values(income) : [];
-    const total = incomeList.reduce((pre, curr) => {
-      pre = pre + curr.count;
-      return pre;
-    }, 0);
-    return {
-      list: incomeList.sort(sortFn).reverse(),
-      total: total,
-    };
-  }, [data, year, month]);
+  const { expenses, income } = useBookkeepingFormat(data);
 
   return (
     <View className="flex-1 w-full items-center py-4 ">
