@@ -1,5 +1,6 @@
 import React from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ReportTabParamList } from '@/screens/report/component/tab/Report.tab';
 import { RootStack } from './rootNavigator';
 import { AuthParamList } from './stack/auth.stack';
 import {
@@ -12,7 +13,8 @@ import TabNavigator, { BottomTabParamList } from './tabNavigator';
 export type RootStackParamList = BottomTabParamList &
   CommonParamList &
   AuthParamList &
-  BookkeepingParamList;
+  BookkeepingParamList &
+  ReportTabParamList;
 
 export type ScreenProp = NativeStackNavigationProp<RootStackParamList>;
 

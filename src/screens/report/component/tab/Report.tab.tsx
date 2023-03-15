@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { ScreenProp } from '@/navigator/main.stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { record } from '@/type/bookkeeping';
 import BalanceView from '../view/Balance.View';
 import RecordView from '../view/Record.View';
 
 const Tab = createMaterialTopTabNavigator();
+export type ReportTabParamList = {
+  ReportExpenses: undefined;
+  ReportIncome: undefined;
+  ReportBalance: undefined;
+};
 
 interface Prop {
   expenses: { list: record[]; total: number };
   income: { list: record[]; total: number };
 }
 const ReportTab = ({ expenses, income }: Prop) => {
+  const isFocused = useIsFocused();
   const { t } = useTranslation();
+  const navigation = useNavigation<ScreenProp>();
+
+  useEffect(() => {
+    if (!isFocused) return;
+    navigation.navigate('ReportBalance');
+  }, [isFocused]);
+
   return (
     <View className="w-full  flex-1 ">
       <Tab.Navigator
-        initialRouteName="ReportBalance"
         screenOptions={({ route }) => {
           return {
             tabBarScrollEnabled: true,

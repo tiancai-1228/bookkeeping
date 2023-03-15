@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/rootSlices';
 import { setMonthSlice, setYearSlice } from '@/redux/slices/bookkeepingSlice';
-import { useIsFocused } from '@react-navigation/native';
 import useBookkeepingFormat from '@/hook/useBookkeepingFormat.hook';
 import useConnectBookkeeping from '@/hook/useConnectBookkeeping.hook';
 import MonthPickerModal from '@/components/modal/MonthPicker.modal';
@@ -14,7 +13,6 @@ import ReportTab from './component/tab/Report.tab';
 const ReportScreen = () => {
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
-  const isFocused = useIsFocused();
   const { connect, bookkeepingData } = useConnectBookkeeping();
   const dispatch = useDispatch();
   const { me } = useSelector((state: RootState) => state.account.value);
@@ -43,7 +41,7 @@ const ReportScreen = () => {
         <AntDesign name="caretdown" size={20} color="white" />
       </TouchableOpacity>
 
-      {isFocused && <ReportTab income={income} expenses={expenses} />}
+      <ReportTab income={income} expenses={expenses} />
 
       <MonthPickerModal
         Visible={visible}
