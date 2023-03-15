@@ -27,7 +27,7 @@ const BalanceList = ({ data }: Prop) => {
     <View className="flex-1">
       <View className="px-3 mb-2 flex-row justify-between">
         <Text className="text-white text-xl font-bold">
-          {t('date_details')}
+          {t('daily_balance')}
         </Text>
 
         <Octicons
