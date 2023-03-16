@@ -1,6 +1,15 @@
+import { category } from './categories';
+
 interface Balance {
   date: number;
   count: number;
 }
 
-export { Balance };
+interface RecordData {
+  name: string;
+  count: number;
+  color: string;
+  category: category;
+}
+
+export { Balance, RecordData };

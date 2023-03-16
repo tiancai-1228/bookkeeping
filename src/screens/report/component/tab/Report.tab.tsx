@@ -32,6 +32,7 @@ const ReportTab = ({ expenses, income }: Prop) => {
   return (
     <View className="w-full  flex-1 ">
       <Tab.Navigator
+        initialRouteName="ReportBalance"
         screenOptions={({ route }) => {
           return {
             tabBarScrollEnabled: true,
