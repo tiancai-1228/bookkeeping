@@ -4,13 +4,13 @@
     "slug": "bookkeeping",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/image/logo.png",
     "scheme": "com.robby1228.bookkeeping",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/image/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#404040"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,16 +18,21 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.robby1228.bookkeeping"
+      "bundleIdentifier": "com.robby1228.bookkeeping",
+      "splash": {
+        "image": "./src/image/logo.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#404040"
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./src/image/logo.png",
+        "backgroundColor": "#404040"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./src/image/logo.png"
     },
     "extra": {
       "eas": {
