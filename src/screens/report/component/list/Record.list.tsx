@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { RecordData } from '@/type/report';
 import RecordItem from '../item/Record.item';
 
