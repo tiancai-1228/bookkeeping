@@ -1,7 +1,8 @@
 import React, { useLayoutEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/rootSlices';
 import { setGoogleTokenSlice, setLenSlice } from '@/redux/slices/accountSlice';
 import { ScreenProp } from '@/navigator/main.stack';
 import { useNavigation } from '@react-navigation/core';
@@ -13,12 +14,16 @@ const SplashScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<ScreenProp>();
 
+  const { googleToken, len } = useSelector(
+    (state: RootState) => state.account.value,
+  );
+
   const getLanguage = async () => {
     try {
-      const len = await AsyncStorage.getItem(Configs.AsyncStorage.len);
-      if (len) {
-        dispatch(setLenSlice({ len }));
-        i18n.changeLanguage(len);
+      const CurrentLen = await AsyncStorage.getItem(Configs.AsyncStorage.len);
+      if (CurrentLen) {
+        !len && dispatch(setLenSlice({ len: CurrentLen }));
+        !len && i18n.changeLanguage(len);
       }
     } catch (e) {
       console.log('error', e);
@@ -26,11 +31,9 @@ const SplashScreen = () => {
   };
 
   const getAuth = async () => {
-    const googleToken = await AsyncStorage.getItem(
-      Configs.AsyncStorage.googleToken,
-    );
-    if (googleToken) {
-      dispatch(setGoogleTokenSlice({ googleToken: googleToken }));
+    const Token = await AsyncStorage.getItem(Configs.AsyncStorage.googleToken);
+    if (Token) {
+      !googleToken && dispatch(setGoogleTokenSlice({ googleToken: Token }));
     } else {
       setTimeout(() => {
         !googleToken && navigation.navigate('Login');
@@ -41,7 +44,7 @@ const SplashScreen = () => {
   useLayoutEffect(() => {
     getLanguage();
     getAuth();
-  }, []);
+  }, [googleToken]);
 
   return (
     <View className="flex-1 items-center justify-center bg-[#404040]">
