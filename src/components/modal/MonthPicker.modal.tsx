@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { AntDesign } from '@expo/vector-icons';
@@ -31,6 +31,12 @@ const MonthPickerModal = ({ Visible, year, month, onClose, onPress }: Prop) => {
     t('nov'),
     t('dec'),
   ];
+
+  useEffect(() => {
+    if (!Visible) return;
+    setNewYear(parseInt(year));
+    setNewMonth(month);
+  }, [Visible]);
 
   return (
     <Modal
