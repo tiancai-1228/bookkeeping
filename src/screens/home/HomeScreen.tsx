@@ -1,15 +1,12 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { onValue, ref } from 'firebase/database';
 import { RootState } from '@/redux/rootSlices';
 import { ScreenProp } from '@/navigator/main.stack';
 import { useNavigation } from '@react-navigation/native';
 import useConnectBookkeeping from '@/hook/useConnectBookkeeping.hook';
-import { bookkeeping } from '@/type/bookkeeping';
 import { enumViewType } from '@/type/common';
 import HeaderRightButton from '@/components/button/HeaderRight.button';
-import { db } from '@/firebase/firebase';
 import CalendarView from './containers/Calendar.view';
 import MonthView from './containers/Month.view';
 
