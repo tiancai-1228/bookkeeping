@@ -21,6 +21,7 @@ export const BookkeepingSlice = createSlice({
         year: moment().format('YYYY'),
         month: moment().format('MM'),
         date: moment().format('DD'),
+        selectDate: moment().format('YYYY-MM-DD'),
       },
     },
     error: '',

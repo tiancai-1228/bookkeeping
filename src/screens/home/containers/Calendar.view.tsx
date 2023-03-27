@@ -50,7 +50,7 @@ const CalendarView = ({ bookkeepingData }: Prop) => {
       list: expenses,
       total: total,
     };
-  }, [expensesList, calendar]);
+  }, [expensesList, calendar.selectDate]);
 
   const income = useMemo(() => {
     if (!calendar) return { list: [], total: 0 };
@@ -65,13 +65,13 @@ const CalendarView = ({ bookkeepingData }: Prop) => {
       list: income,
       total: total,
     };
-  }, [incomeList, calendar]);
+  }, [incomeList, calendar.selectDate]);
 
   return (
     <View className="w-full flex-1 mt-4">
       <CustomerCalendar
         data={[...expensesList, ...incomeList]}
-        initDate={calendar}
+        calendarDate={calendar}
       />
       <View className="w-full border-y-4 border-gray-500 py-2 flex-row justify-around">
         <View>

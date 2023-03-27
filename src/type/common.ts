@@ -4,6 +4,7 @@ interface bookkeepingDate {
   year: string;
   month: string;
   date: string;
+  selectDate: string;
 }
 type MarkedDates = {
   [key: string]: MarkingProps;
