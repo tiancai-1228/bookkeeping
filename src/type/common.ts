@@ -4,6 +4,11 @@ interface bookkeepingDate {
   year: string;
   month: string;
   date: string;
+}
+interface CalendarType {
+  year: string;
+  month: string;
+  date: string;
   selectDate: string;
 }
 type MarkedDates = {
@@ -15,4 +20,4 @@ enum enumViewType {
   Calendar = 'Calendar',
 }
 
-export { bookkeepingDate, enumViewType, MarkedDates };
+export { bookkeepingDate, enumViewType, MarkedDates, CalendarType };

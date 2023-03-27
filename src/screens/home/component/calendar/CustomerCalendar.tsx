@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Calendar, DateData } from 'react-native-calendars';
 import { useDispatch } from 'react-redux';
 import { setCalendarSlice } from '@/redux/slices/bookkeepingSlice';
 import { record } from '@/type/bookkeeping';
-import { bookkeepingDate, MarkedDates } from '@/type/common';
+import { CalendarType, MarkedDates } from '@/type/common';
 import moment from 'moment';
 
 interface Prop {
   data: record[];
-  calendarDate: bookkeepingDate;
+  calendarDate: CalendarType;
 }
 
 const CustomerCalendar = ({ data, calendarDate }: Prop) => {

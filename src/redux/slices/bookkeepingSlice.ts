@@ -1,4 +1,4 @@
-import { bookkeepingDate } from '@/type/common';
+import { bookkeepingDate, CalendarType } from '@/type/common';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import moment from 'moment';
 
@@ -6,7 +6,7 @@ export interface BookkeepingSlice {
   value: {
     year: string;
     month: string;
-    calendar: bookkeepingDate;
+    calendar: CalendarType;
   };
   error: string;
 }
@@ -45,7 +45,7 @@ export const BookkeepingSlice = createSlice({
     },
     setCalendarSlice: (
       state,
-      _action: PayloadAction<{ date: bookkeepingDate }>,
+      _action: PayloadAction<{ date: CalendarType }>,
     ) => {
       const { value } = state;
       return {
