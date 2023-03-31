@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { bookkeeping, record } from '@/type/bookkeeping';
+import { record } from '@/type/bookkeeping';
 import ExpensesScrollView from '../scrollView/Expenses.scrollView';
 import IncomeScrollView from '../scrollView/Income.scrollView';
 
